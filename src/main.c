@@ -94,7 +94,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 }
 
 SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
-    (void)appstate;
+    AppState *state = appstate;
 
     ImGui_SDL3_ProcessEvent(event);
 
@@ -107,21 +107,25 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
     case SDL_EVENT_KEY_DOWN:
         if (event->key.key == SDLK_ESCAPE)
             return SDL_APP_SUCCESS;
+        // R to reset to aim state
+        if (event->key.key == SDLK_R)
+            game_init(&state->game);
         break;
 
     case SDL_EVENT_MOUSE_BUTTON_DOWN:
-        if (!imgui_wants_mouse) {
-            if (event->button.button == SDL_BUTTON_LEFT) {
-            }
-            if (event->button.button == SDL_BUTTON_RIGHT) {
-            }
+        if (!imgui_wants_mouse && event->button.button == SDL_BUTTON_LEFT) {
+            game_aim_start(&state->game, event->button.x, event->button.y);
         }
         break;
 
     case SDL_EVENT_MOUSE_BUTTON_UP:
+        if (event->button.button == SDL_BUTTON_LEFT) {
+            game_aim_release(&state->game, event->button.x, event->button.y);
+        }
         break;
 
     case SDL_EVENT_MOUSE_MOTION:
+        game_aim_move(&state->game, event->motion.x, event->motion.y);
         break;
 
     default:
@@ -138,6 +142,9 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
     u64 now = SDL_GetTicks();
     f32 dt = (f32)(now - state->last_ticks) / 1000.0f;
     state->last_ticks = now;
+
+    // Update game
+    game_update(&state->game, dt);
 
     // Step Box2D world
     b2World_Step(state->world_id, dt, 4);

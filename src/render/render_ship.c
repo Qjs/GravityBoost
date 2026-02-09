@@ -37,6 +37,74 @@ static void fill_triangle(SDL_Renderer *renderer,
     }
 }
 
+static void draw_aim_line(SDL_Renderer *renderer, const Game *game) {
+    const Camera *cam = &game->cam;
+    const Ship *ship = &game->ship;
+    const AimState *aim = &game->aim;
+
+    f32 ship_sx = world_to_screen_x(cam, ship->pos.x);
+    f32 ship_sy = world_to_screen_y(cam, ship->pos.y);
+    f32 mouse_sx = world_to_screen_x(cam, aim->mouse_world.x);
+    f32 mouse_sy = world_to_screen_y(cam, aim->mouse_world.y);
+
+    // World-space distance from ship to mouse
+    Vec2 dir = {
+        aim->mouse_world.x - ship->pos.x,
+        aim->mouse_world.y - ship->pos.y,
+    };
+    f32 len = vec2_len(dir);
+    if (len < 0.1f) return;
+
+    // Ratio of current drag to max velocity (for color)
+    f32 ratio = len / game->vel_max;
+    if (ratio > 1.0f) ratio = 1.0f;
+
+    // Clamp the visual endpoint to vel_max distance
+    f32 end_sx, end_sy;
+    if (len > game->vel_max) {
+        f32 nx = dir.x / len;
+        f32 ny = dir.y / len;
+        f32 clamp_wx = ship->pos.x + nx * game->vel_max;
+        f32 clamp_wy = ship->pos.y + ny * game->vel_max;
+        end_sx = world_to_screen_x(cam, clamp_wx);
+        end_sy = world_to_screen_y(cam, clamp_wy);
+    } else {
+        end_sx = mouse_sx;
+        end_sy = mouse_sy;
+    }
+
+    // Color: green at low power, yellow mid, red at max
+    u8 r, g;
+    if (ratio < 0.5f) {
+        r = (u8)(ratio * 2.0f * 255);
+        g = 255;
+    } else {
+        r = 255;
+        g = (u8)((1.0f - ratio) * 2.0f * 255);
+    }
+
+    // Main aim line
+    SDL_SetRenderDrawColor(renderer, r, g, 50, 255);
+    SDL_RenderLine(renderer, ship_sx, ship_sy, end_sx, end_sy);
+
+    // Arrowhead at the end
+    f32 dx = end_sx - ship_sx;
+    f32 dy = end_sy - ship_sy;
+    f32 screen_len = sqrtf(dx * dx + dy * dy);
+    if (screen_len > 5.0f) {
+        f32 ux = dx / screen_len;
+        f32 uy = dy / screen_len;
+        f32 arrow = 10.0f;
+        // Two barbs
+        f32 ax1 = end_sx - ux * arrow + uy * arrow * 0.5f;
+        f32 ay1 = end_sy - uy * arrow - ux * arrow * 0.5f;
+        f32 ax2 = end_sx - ux * arrow - uy * arrow * 0.5f;
+        f32 ay2 = end_sy - uy * arrow + ux * arrow * 0.5f;
+        SDL_RenderLine(renderer, end_sx, end_sy, ax1, ay1);
+        SDL_RenderLine(renderer, end_sx, end_sy, ax2, ay2);
+    }
+}
+
 void render_ship(SDL_Renderer *renderer, const Game *game) {
     const Camera *cam = &game->cam;
     const Ship *ship = &game->ship;
@@ -44,12 +112,6 @@ void render_ship(SDL_Renderer *renderer, const Game *game) {
     f32 sx = world_to_screen_x(cam, ship->pos.x);
     f32 sy = world_to_screen_y(cam, ship->pos.y);
     f32 sr = world_to_screen_r(cam, ship->radius);
-
-    static bool logged = false;
-    if (!logged) {
-        SDL_Log("Ship: screen(%.1f, %.1f) r=%.1f size=%.1f", sx, sy, sr, sr * 3.0f);
-        logged = true;
-    }
 
     // Ship is a triangle pointing in the direction of ship->angle
     // Scale: ~3x the physics radius for visibility
@@ -70,8 +132,8 @@ void render_ship(SDL_Renderer *renderer, const Game *game) {
     f32 rx = sx + cosf(a - 2.4f) * size * 0.7f;
     f32 ry = sy - sinf(a - 2.4f) * size * 0.7f;
 
-    // Engine glow (small triangle behind ship)
-    {
+    // Engine glow (only when moving)
+    if (game->state == GAME_STATE_PLAYING) {
         f32 ex = sx - cosf(a) * size * 0.5f;
         f32 ey = sy + sinf(a) * size * 0.5f;
 
@@ -95,4 +157,9 @@ void render_ship(SDL_Renderer *renderer, const Game *game) {
     SDL_RenderLine(renderer, nx, ny, lx, ly);
     SDL_RenderLine(renderer, lx, ly, rx, ry);
     SDL_RenderLine(renderer, rx, ry, nx, ny);
+
+    // Aim line (while dragging)
+    if (game->aim.aiming) {
+        draw_aim_line(renderer, game);
+    }
 }

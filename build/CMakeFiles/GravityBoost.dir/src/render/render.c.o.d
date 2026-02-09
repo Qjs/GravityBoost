@@ -87,6 +87,11 @@ CMakeFiles/GravityBoost.dir/src/render/render.c.o: \
  /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_oldnames.h \
  /home/quincy/code/GravityBoost/src/utils/q_util.h \
  /home/quincy/code/GravityBoost/src/render/render_ship.h \
- /home/quincy/code/GravityBoost/src/game/game.h \
+ /home/quincy/code/GravityBoost/src/game/game.h /usr/include/math.h \
+ /usr/include/bits/math-vector.h /usr/include/bits/libm-simd-decl-stubs.h \
+ /usr/include/bits/flt-eval-method.h /usr/include/bits/fp-logb.h \
+ /usr/include/bits/fp-fast.h /usr/include/bits/mathcalls-macros.h \
+ /usr/include/bits/mathcalls-helper-functions.h \
+ /usr/include/bits/mathcalls.h \
  /home/quincy/code/GravityBoost/src/render/render_planets.h \
  /home/quincy/code/GravityBoost/src/render/render_ui.h

@@ -19,8 +19,18 @@ CMakeFiles/GravityBoost.dir/src/data/json.c.o: /home/quincy/code/GravityBoost/sr
 CMakeFiles/GravityBoost.dir/src/game/game.c.o: /home/quincy/code/GravityBoost/src/game/game.c \
   /home/quincy/code/GravityBoost/src/game/game.h \
   /home/quincy/code/GravityBoost/src/utils/q_util.h \
+  /usr/include/bits/floatn-common.h \
+  /usr/include/bits/floatn.h \
+  /usr/include/bits/flt-eval-method.h \
+  /usr/include/bits/fp-fast.h \
+  /usr/include/bits/fp-logb.h \
   /usr/include/bits/libc-header-start.h \
+  /usr/include/bits/libm-simd-decl-stubs.h \
   /usr/include/bits/long-double.h \
+  /usr/include/bits/math-vector.h \
+  /usr/include/bits/mathcalls-helper-functions.h \
+  /usr/include/bits/mathcalls-macros.h \
+  /usr/include/bits/mathcalls.h \
   /usr/include/bits/stdint-intn.h \
   /usr/include/bits/stdint-least.h \
   /usr/include/bits/stdint-uintn.h \
@@ -34,6 +44,7 @@ CMakeFiles/GravityBoost.dir/src/game/game.c.o: /home/quincy/code/GravityBoost/sr
   /usr/include/features.h \
   /usr/include/gnu/stubs-64.h \
   /usr/include/gnu/stubs.h \
+  /usr/include/math.h \
   /usr/include/stdc-predef.h \
   /usr/include/stdint.h \
   /usr/include/sys/cdefs.h \
@@ -403,8 +414,16 @@ CMakeFiles/GravityBoost.dir/src/render/render.c.o: /home/quincy/code/GravityBoos
   /usr/include/bits/endianness.h \
   /usr/include/bits/floatn-common.h \
   /usr/include/bits/floatn.h \
+  /usr/include/bits/flt-eval-method.h \
+  /usr/include/bits/fp-fast.h \
+  /usr/include/bits/fp-logb.h \
   /usr/include/bits/libc-header-start.h \
+  /usr/include/bits/libm-simd-decl-stubs.h \
   /usr/include/bits/long-double.h \
+  /usr/include/bits/math-vector.h \
+  /usr/include/bits/mathcalls-helper-functions.h \
+  /usr/include/bits/mathcalls-macros.h \
+  /usr/include/bits/mathcalls.h \
   /usr/include/bits/stdint-intn.h \
   /usr/include/bits/stdint-least.h \
   /usr/include/bits/stdint-uintn.h \
@@ -428,6 +447,7 @@ CMakeFiles/GravityBoost.dir/src/render/render.c.o: /home/quincy/code/GravityBoos
   /usr/include/gnu/stubs-64.h \
   /usr/include/gnu/stubs.h \
   /usr/include/inttypes.h \
+  /usr/include/math.h \
   /usr/include/stdc-predef.h \
   /usr/include/stdint.h \
   /usr/include/string.h \
@@ -917,23 +937,11 @@ libcimgui.a:
 
 /home/quincy/code/GravityBoost/src/physics/phys_gravity.c:
 
-/usr/include/math.h:
-
 /usr/include/inttypes.h:
 
 /usr/include/bits/types/cookie_io_functions_t.h:
 
 /usr/include/bits/types/__fpos64_t.h:
-
-/usr/include/bits/types/clock_t.h:
-
-/usr/include/bits/types/__fpos_t.h:
-
-/usr/include/bits/mathcalls.h:
-
-/usr/include/bits/mathcalls-macros.h:
-
-/usr/include/bits/math-vector.h:
 
 /usr/include/bits/thread-shared-types.h:
 
@@ -941,9 +949,19 @@ libcimgui.a:
 
 /home/quincy/code/GravityBoost/src/render/render.h:
 
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_hidapi.h:
+/home/quincy/code/GravityBoost/lib/cJSON/cJSON.h:
 
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL.h:
+/home/quincy/code/GravityBoost/lib/box2d/include/box2d/math_functions.h:
+
+/usr/lib/libgcc_s.so:
+
+/home/quincy/code/GravityBoost/lib/box2d/include/box2d/box2d.h:
+
+/home/quincy/code/GravityBoost/lib/box2d/include/box2d/base.h:
+
+/home/quincy/code/GravityBoost/src/render/render_ship.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_main_impl.h:
 
 /home/quincy/code/GravityBoost/src/game/game.c:
 
@@ -957,35 +975,65 @@ CMakeFiles/GravityBoost.dir/src/data/json.c.o:
 
 /usr/include/bits/endian.h:
 
-/usr/include/bits/struct_mutex.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_bits.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_gamepad.h:
-
-/usr/include/bits/stdint-uintn.h:
-
-/usr/include/endian.h:
-
-/usr/lib/libc.so.6:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_keyboard.h:
-
-/home/quincy/code/GravityBoost/src/imgui_sdl3.cpp:
-
-/home/quincy/code/GravityBoost/lib/cJSON/cJSON.h:
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL.h:
 
 /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_clipboard.h:
 
 /home/quincy/code/GravityBoost/lib/cimgui/imgui/backends/imgui_impl_sdlrenderer3.h:
 
+/usr/include/bits/pthreadtypes-arch.h:
+
+/home/quincy/code/GravityBoost/src/physics/physics.c:
+
+/usr/include/gnu/stubs.h:
+
+/usr/include/math.h:
+
+/usr/include/gnu/stubs-64.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_events.h:
+
+/usr/include/stdint.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_audio.h:
+
+/usr/include/features-time64.h:
+
+CMakeFiles/GravityBoost.dir/src/main.c.o:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_asyncio.h:
+
+/usr/include/bits/wordsize.h:
+
+/usr/include/sys/cdefs.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_assert.h:
+
+/home/quincy/code/GravityBoost/src/game/game.h:
+
+/usr/include/bits/wchar.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_rect.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_mouse.h:
+
+/home/quincy/code/GravityBoost/src/data/json.c:
+
+/usr/include/bits/floatn.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_dialog.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_blendmode.h:
+
+/usr/include/bits/floatn-common.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_camera.h:
+
+/usr/include/wchar.h:
+
 /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_begin_code.h:
-
-/usr/lib/crti.o:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_hints.h:
-
-/usr/include/bits/typesizes.h:
 
 /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_version.h:
 
@@ -993,37 +1041,19 @@ CMakeFiles/GravityBoost.dir/src/data/json.c.o:
 
 /usr/include/bits/uintn-identity.h:
 
-/usr/include/bits/libc-header-start.h:
+/usr/include/bits/types/struct_FILE.h:
 
-/usr/include/sys/cdefs.h:
+/home/quincy/code/GravityBoost/src/data/fs.h:
 
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_init.h:
+/usr/include/bits/select.h:
 
-/usr/include/bits/waitflags.h:
+/home/quincy/code/GravityBoost/lib/cimgui/cimgui.h:
 
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_haptic.h:
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_error.h:
 
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_atomic.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_assert.h:
-
-/usr/include/bits/libm-simd-decl-stubs.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_dlopennote.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_video.h:
-
-/home/quincy/code/GravityBoost/src/game/game.h:
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_time.h:
 
 /usr/include/bits/stdint-least.h:
-
-/home/quincy/code/GravityBoost/src/data/json.c:
-
-/usr/include/bits/wchar.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_rect.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_mouse.h:
 
 /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_close_code.h:
 
@@ -1033,93 +1063,19 @@ CMakeFiles/GravityBoost.dir/src/data/json.c.o:
 
 /usr/include/bits/long-double.h:
 
-libcjson_lib.a:
-
-/home/quincy/code/GravityBoost/src/utils/q_util.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_joystick.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_dialog.h:
-
-/usr/include/wchar.h:
-
-/home/quincy/code/GravityBoost/src/render/render_ship.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_main_impl.h:
-
-/usr/include/bits/types/struct_FILE.h:
-
-/home/quincy/code/GravityBoost/src/data/fs.h:
-
-/usr/include/bits/select.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_time.h:
-
-/home/quincy/code/GravityBoost/lib/cimgui/cimgui.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_error.h:
-
-CMakeFiles/GravityBoost.dir/src/main.c.o:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_asyncio.h:
-
-/usr/include/bits/wordsize.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_iostream.h:
-
-/home/quincy/code/GravityBoost/src/render/render_planets.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_timer.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_sensor.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_loadso.h:
-
-/usr/include/bits/byteswap.h:
-
 /home/quincy/code/GravityBoost/src/app/app.h:
 
 /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_log.h:
-
-/usr/include/bits/flt-eval-method.h:
-
-/usr/include/bits/types/FILE.h:
-
-/home/quincy/code/GravityBoost/src/app/app.c:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdint.h:
 
 /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_cpuinfo.h:
 
-/usr/include/bits/stdint-intn.h:
+/usr/include/bits/types/FILE.h:
 
-/usr/include/bits/stdlib-float.h:
+/home/quincy/code/GravityBoost/src/app/app.c:
 
-/usr/include/bits/time64.h:
-
-/usr/include/bits/mathcalls-helper-functions.h:
-
-/usr/include/string.h:
-
-/usr/include/gnu/stubs-64.h:
-
-/usr/include/bits/types.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_events.h:
-
-/usr/include/features-time64.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_audio.h:
-
-/usr/include/stdint.h:
-
-/usr/include/bits/pthreadtypes-arch.h:
-
-/home/quincy/code/GravityBoost/src/physics/physics.c:
-
-/usr/include/gnu/stubs.h:
+/usr/include/bits/flt-eval-method.h:
 
 /home/quincy/code/GravityBoost/lib/cimgui/imgui/imconfig.h:
 
@@ -1130,6 +1086,98 @@ CMakeFiles/GravityBoost.dir/src/main.c.o:
 /usr/include/bits/types/__FILE.h:
 
 /usr/include/stdc-predef.h:
+
+/home/quincy/code/GravityBoost/lib/box2d/include/box2d/types.h:
+
+/home/quincy/code/GravityBoost/lib/box2d/include/box2d/id.h:
+
+/usr/include/bits/fp-fast.h:
+
+/usr/include/bits/stdlib-float.h:
+
+/usr/include/bits/time64.h:
+
+/usr/include/bits/libc-header-start.h:
+
+/usr/include/bits/mathcalls-macros.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_render.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_dlopennote.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_video.h:
+
+/usr/include/bits/libm-simd-decl-stubs.h:
+
+/usr/include/bits/math-vector.h:
+
+/usr/include/bits/struct_mutex.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_bits.h:
+
+/usr/include/string.h:
+
+/usr/include/bits/mathcalls-helper-functions.h:
+
+/usr/include/bits/types.h:
+
+/usr/include/bits/types/clock_t.h:
+
+/usr/include/bits/types/__fpos_t.h:
+
+/usr/include/bits/mathcalls.h:
+
+/usr/include/bits/stdint-intn.h:
+
+/usr/include/bits/stdint-uintn.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_gamepad.h:
+
+/usr/include/endian.h:
+
+/home/quincy/code/GravityBoost/lib/box2d/include/box2d/collision.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_gpu.h:
+
+/usr/include/bits/waitflags.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_atomic.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_haptic.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_hidapi.h:
+
+/usr/lib/crti.o:
+
+/usr/include/bits/typesizes.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_hints.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_init.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_iostream.h:
+
+/home/quincy/code/GravityBoost/src/render/render_planets.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_timer.h:
+
+libcjson_lib.a:
+
+/home/quincy/code/GravityBoost/src/utils/q_util.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_joystick.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_sensor.h:
+
+/usr/include/bits/byteswap.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_loadso.h:
+
+/usr/lib/libc.so.6:
+
+/home/quincy/code/GravityBoost/src/imgui_sdl3.cpp:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_keyboard.h:
 
 /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_keycode.h:
 
@@ -1173,8 +1221,6 @@ CMakeFiles/GravityBoost.dir/src/physics/phys_gravity.c.o:
 
 /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_properties.h:
 
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_render.h:
-
 /usr/lib/libm.so.6:
 
 /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_scancode.h:
@@ -1209,16 +1255,6 @@ lib/box2d/src/libbox2dd.a:
 
 /usr/include/bits/endianness.h:
 
-/home/quincy/code/GravityBoost/lib/box2d/include/box2d/base.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_blendmode.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_camera.h:
-
-/usr/include/bits/floatn-common.h:
-
-/usr/include/bits/floatn.h:
-
 /usr/include/bits/types/__locale_t.h:
 
 /usr/include/bits/stdio_lim.h:
@@ -1242,19 +1278,3 @@ lib/box2d/src/libbox2dd.a:
 /usr/include/bits/types/wint_t.h:
 
 /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_main.h:
-
-/usr/lib/libgcc_s.so:
-
-/home/quincy/code/GravityBoost/lib/box2d/include/box2d/box2d.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_gpu.h:
-
-/home/quincy/code/GravityBoost/lib/box2d/include/box2d/collision.h:
-
-/usr/include/bits/fp-fast.h:
-
-/home/quincy/code/GravityBoost/lib/box2d/include/box2d/types.h:
-
-/home/quincy/code/GravityBoost/lib/box2d/include/box2d/id.h:
-
-/home/quincy/code/GravityBoost/lib/box2d/include/box2d/math_functions.h:
