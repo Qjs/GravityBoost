@@ -1,0 +1,19 @@
+lib/SDL/CMakeFiles/SDL3-static.dir/src/gpu/xr/SDL_openxrdyn.c.o: \
+ /home/quincy/code/GravityBoost/lib/SDL/src/gpu/xr/SDL_openxrdyn.c \
+ /usr/include/stdc-predef.h \
+ /home/quincy/code/GravityBoost/lib/SDL/src/SDL_internal.h \
+ /home/quincy/code/GravityBoost/lib/SDL/src/gpu/xr/SDL_openxrdyn.h \
+ /home/quincy/code/GravityBoost/lib/SDL/src/gpu/xr/SDL_openxr_internal.h \
+ /home/quincy/code/GravityBoost/lib/SDL/src/gpu/xr/../../video/khronos/openxr/openxr.h \
+ /home/quincy/code/GravityBoost/lib/SDL/src/gpu/xr/../../video/khronos/openxr/openxr_platform_defines.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdint.h \
+ /home/quincy/code/GravityBoost/lib/SDL/src/gpu/xr/../../video/khronos/openxr/openxr_platform.h \
+ /home/quincy/code/GravityBoost/lib/SDL/src/gpu/xr/../../video/khronos/openxr/openxr.h \
+ /home/quincy/code/GravityBoost/lib/SDL/src/gpu/xr/SDL_openxrsym.h \
+ /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_dlopennote.h \
+ /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_openxr.h \
+ /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_stdinc.h \
+ /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_gpu.h \
+ /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_begin_code.h \
+ /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_close_code.h

@@ -8,7 +8,8 @@
 #include "imgui_sdl3.h"
 #include "utils/q_util.h"
 
-// game specific includes
+#include <box2d/box2d.h>
+#include "cJSON.h"
 
 #define WINDOW_SIZE 800
 
@@ -18,6 +19,7 @@ typedef struct {
   SDL_Renderer *renderer;
   SDL_Texture *texture;
   u64 last_ticks;
+  b2WorldId world_id;
 } AppState;
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
@@ -63,11 +65,27 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 
     state->last_ticks = SDL_GetTicks();
 
+    // Create Box2D world (proves Box2D links)
+    b2WorldDef world_def = b2DefaultWorldDef();
+    world_def.gravity = (b2Vec2){0.0f, -9.81f};
+    state->world_id = b2CreateWorld(&world_def);
+    SDL_Log("Box2D world created");
+
+    // Test cJSON (proves cJSON links)
+    cJSON *json = cJSON_Parse("{\"game\":\"GravityBoost\"}");
+    if (json) {
+        cJSON *game = cJSON_GetObjectItem(json, "game");
+        if (cJSON_IsString(game)) {
+            SDL_Log("cJSON OK: game = %s", game->valuestring);
+        }
+        cJSON_Delete(json);
+    }
+
     return SDL_APP_CONTINUE;
 }
 
 SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
-      AppState *state = appstate;
+    (void)appstate;
 
     ImGui_SDL3_ProcessEvent(event);
 
@@ -79,40 +97,79 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
 
     case SDL_EVENT_KEY_DOWN:
         if (event->key.key == SDLK_ESCAPE)
-        return SDL_APP_SUCCESS;
-    // if (event->key.key == SDLK_R && !event->key.repeat) {
-
-    //   }
+            return SDL_APP_SUCCESS;
         break;
 
-  // Mouse Motion
     case SDL_EVENT_MOUSE_BUTTON_DOWN:
         if (!imgui_wants_mouse) {
             if (event->button.button == SDL_BUTTON_LEFT) {
-            // Left mouse
             }
             if (event->button.button == SDL_BUTTON_RIGHT) {
-            // Right Mouse
             }
         }
         break;
 
     case SDL_EVENT_MOUSE_BUTTON_UP:
-        if (event->button.button == SDL_BUTTON_LEFT) {
-        }
-
-        if (event->button.button == SDL_BUTTON_RIGHT) {
-        }
         break;
 
     case SDL_EVENT_MOUSE_MOTION:
-        if (!imgui_wants_mouse) {
-        // int prev_x = state->input.mouse_x;
-        // int prev_y = state->input.mouse_y;
-        }
         break;
 
     default:
         break;
     }
+
+    return SDL_APP_CONTINUE;
+}
+
+SDL_AppResult SDL_AppIterate(void *appstate) {
+    AppState *state = appstate;
+
+    // Timing
+    u64 now = SDL_GetTicks();
+    f32 dt = (f32)(now - state->last_ticks) / 1000.0f;
+    state->last_ticks = now;
+
+    // Step Box2D world
+    b2World_Step(state->world_id, dt, 4);
+
+    // Clear
+    SDL_SetRenderDrawColor(state->renderer, 20, 20, 30, 255);
+    SDL_RenderClear(state->renderer);
+
+    // ImGui frame
+    ImGui_SDL3_NewFrame();
+
+    igSetNextWindowPos((ImVec2){10, 10}, ImGuiCond_FirstUseEver, (ImVec2){0, 0});
+    igSetNextWindowSize((ImVec2){250, 150}, ImGuiCond_FirstUseEver);
+    igBegin("GravityBoost", NULL, 0);
+    igText("FPS: %.1f", 1.0f / (dt > 0.0001f ? dt : 0.016f));
+    igSeparator();
+
+    static int level_idx = 0;
+    const char *levels[] = {"Level 1", "Level 2", "Level 3"};
+    igCombo_Str_arr("Level", &level_idx, levels, 3, -1);
+
+    igEnd();
+
+    // Render
+    ImGui_SDL3_Render(state->renderer);
+    SDL_RenderPresent(state->renderer);
+
+    return SDL_APP_CONTINUE;
+}
+
+void SDL_AppQuit(void *appstate, SDL_AppResult result) {
+    (void)result;
+    AppState *state = appstate;
+    if (!state) return;
+
+    b2DestroyWorld(state->world_id);
+    ImGui_SDL3_Shutdown();
+
+    if (state->texture)  SDL_DestroyTexture(state->texture);
+    if (state->renderer) SDL_DestroyRenderer(state->renderer);
+    if (state->window)   SDL_DestroyWindow(state->window);
+
+    SDL_free(state);
 }

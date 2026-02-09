@@ -1,0 +1,11 @@
+lib/SDL/CMakeFiles/SDL3-static.dir/src/joystick/hidapi/SDL_hidapi_gip.c.o: \
+ /home/quincy/code/GravityBoost/lib/SDL/src/joystick/hidapi/SDL_hidapi_gip.c \
+ /usr/include/stdc-predef.h \
+ /home/quincy/code/GravityBoost/lib/SDL/src/SDL_internal.h \
+ /home/quincy/code/GravityBoost/lib/SDL/src/joystick/hidapi/../../events/SDL_keyboard_c.h \
+ /home/quincy/code/GravityBoost/lib/SDL/src/joystick/hidapi/../../events/SDL_keymap_c.h \
+ /home/quincy/code/GravityBoost/lib/SDL/src/joystick/hidapi/../SDL_sysjoystick.h \
+ /home/quincy/code/GravityBoost/lib/SDL/src/joystick/hidapi/../SDL_joystick_c.h \
+ /home/quincy/code/GravityBoost/lib/SDL/src/joystick/hidapi/SDL_hidapijoystick_c.h \
+ /home/quincy/code/GravityBoost/lib/SDL/src/joystick/hidapi/../usb_ids.h \
+ /home/quincy/code/GravityBoost/lib/SDL/src/joystick/hidapi/SDL_hidapi_rumble.h

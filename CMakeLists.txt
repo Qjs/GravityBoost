@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.22)
 project(GravityBoost C)
 enable_language(CXX)
 
@@ -35,15 +35,38 @@ target_include_directories(cimgui PUBLIC
 )
 target_link_libraries(cimgui PUBLIC SDL3::SDL3-static)
 
-add_executable(qsimplesim
+# Build Box2D from submodule
+add_subdirectory(lib/box2d)
+
+# Build cJSON as a simple static library (just the one file)
+add_library(cjson_lib STATIC lib/cJSON/cJSON.c)
+target_include_directories(cjson_lib PUBLIC lib/cJSON)
+
+# GravityBoost executable
+add_executable(GravityBoost
     src/main.c
     src/imgui_sdl3.cpp
+    src/app/app.c
+    src/game/game.c
+    src/physics/physics.c
+    src/physics/phys_gravity.c
+    src/render/render.c
+    src/render/render_ship.c
+    src/render/render_background.c
+    src/render/render_planets.c
+    src/render/render_ui.c
+    src/data/json.c
+    src/data/fs.c
 )
 
 target_include_directories(GravityBoost PRIVATE src)
-target_link_libraries(GravityBoost PRIVATE SDL3::SDL3-static)
-target_link_libraries(GravityBoost PRIVATE cimgui)
-target_link_libraries(GravityBoost PRIVATE m)
+target_link_libraries(GravityBoost PRIVATE
+    SDL3::SDL3-static
+    cimgui
+    box2d
+    cjson_lib
+    m
+)
 
 if(EMSCRIPTEN)
     set_target_properties(GravityBoost PROPERTIES SUFFIX ".html")
