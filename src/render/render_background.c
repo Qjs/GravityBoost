@@ -1,10 +1,11 @@
 #include "render/render_background.h"
 #include <stdlib.h>
 
-#define WINDOW_SIZE 800
+#define SCREEN_W 1280
+#define SCREEN_H 720
 
 #define NUM_LAYERS 3
-#define STARS_PER_LAYER 80
+#define STARS_PER_LAYER 120
 
 typedef struct {
     f32 x, y;
@@ -38,8 +39,8 @@ void background_init(void) {
         layers[l].bright = brights[l];
 
         for (int i = 0; i < STARS_PER_LAYER; i++) {
-            layers[l].stars[i].x = randf() * WINDOW_SIZE;
-            layers[l].stars[i].y = randf() * WINDOW_SIZE;
+            layers[l].stars[i].x = randf() * SCREEN_W;
+            layers[l].stars[i].y = randf() * SCREEN_H;
         }
     }
     initialized = true;
@@ -65,9 +66,9 @@ void render_background(SDL_Renderer *renderer, f32 dt) {
             s->y += layer->speed * dt;
 
             // Wrap around
-            if (s->y > WINDOW_SIZE) {
-                s->y -= WINDOW_SIZE;
-                s->x = randf() * WINDOW_SIZE;
+            if (s->y > SCREEN_H) {
+                s->y -= SCREEN_H;
+                s->x = randf() * SCREEN_W;
             }
 
             // Draw star as a filled rect (size varies by layer)

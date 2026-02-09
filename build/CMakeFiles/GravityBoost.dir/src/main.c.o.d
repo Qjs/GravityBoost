@@ -105,4 +105,9 @@ CMakeFiles/GravityBoost.dir/src/main.c.o: \
  /home/quincy/code/GravityBoost/lib/box2d/src/../include/box2d/id.h \
  /home/quincy/code/GravityBoost/lib/box2d/src/../include/box2d/types.h \
  /home/quincy/code/GravityBoost/lib/cJSON/cJSON.h \
- /home/quincy/code/GravityBoost/src/render/render_background.h
+ /home/quincy/code/GravityBoost/src/game/game.h \
+ /home/quincy/code/GravityBoost/src/render/render.h \
+ /home/quincy/code/GravityBoost/src/render/render_background.h \
+ /home/quincy/code/GravityBoost/src/render/render_ship.h \
+ /home/quincy/code/GravityBoost/src/render/render_planets.h \
+ /home/quincy/code/GravityBoost/src/render/render_ui.h

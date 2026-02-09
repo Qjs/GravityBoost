@@ -10,9 +10,11 @@
 
 #include <box2d/box2d.h>
 #include "cJSON.h"
-#include "render/render_background.h"
+#include "game/game.h"
+#include "render/render.h"
 
-#define WINDOW_SIZE 800
+#define WINDOW_W 1280
+#define WINDOW_H 720
 
 // AppState
 typedef struct {
@@ -21,6 +23,7 @@ typedef struct {
   SDL_Texture *texture;
   u64 last_ticks;
   b2WorldId world_id;
+  Game game;
 } AppState;
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
@@ -38,7 +41,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
         return SDL_APP_FAILURE;
     }
 
-    state->window = SDL_CreateWindow("GravityBoost", WINDOW_SIZE, WINDOW_SIZE, 0);
+    state->window = SDL_CreateWindow("GravityBoost", WINDOW_W, WINDOW_H, 0);
     if (!state->window) {
         SDL_Log("SDL_CreateWindow failed: %s", SDL_GetError());
         return SDL_APP_FAILURE;
@@ -55,9 +58,8 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
         return SDL_APP_FAILURE;
     }
 
-    s32 grid = WINDOW_SIZE;
     state->texture = SDL_CreateTexture(state->renderer, SDL_PIXELFORMAT_ABGR8888,
-                                     SDL_TEXTUREACCESS_STREAMING, grid, grid);
+                                     SDL_TEXTUREACCESS_STREAMING, WINDOW_W, WINDOW_H);
     if (!state->texture) {
         SDL_Log("SDL_CreateTexture failed: %s", SDL_GetError());
         return SDL_APP_FAILURE;
@@ -75,11 +77,17 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
     // Test cJSON (proves cJSON links)
     cJSON *json = cJSON_Parse("{\"game\":\"GravityBoost\"}");
     if (json) {
-        cJSON *game = cJSON_GetObjectItem(json, "game");
-        if (cJSON_IsString(game)) {
-            SDL_Log("cJSON OK: game = %s", game->valuestring);
+        cJSON *item = cJSON_GetObjectItem(json, "game");
+        if (cJSON_IsString(item)) {
+            SDL_Log("cJSON OK: game = %s", item->valuestring);
         }
         cJSON_Delete(json);
+    }
+
+    // Init game state with test level
+    if (!game_init(&state->game)) {
+        SDL_Log("game_init failed");
+        return SDL_APP_FAILURE;
     }
 
     return SDL_APP_CONTINUE;
@@ -141,6 +149,10 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
     // Parallax starfield
     render_background(state->renderer, dt);
 
+    // Game objects
+    render_planets(state->renderer, &state->game);
+    render_ship(state->renderer, &state->game);
+
     // ImGui frame
     ImGui_SDL3_NewFrame();
 
@@ -168,6 +180,7 @@ void SDL_AppQuit(void *appstate, SDL_AppResult result) {
     AppState *state = appstate;
     if (!state) return;
 
+    game_shutdown(&state->game);
     b2DestroyWorld(state->world_id);
     ImGui_SDL3_Shutdown();
 

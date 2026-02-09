@@ -1,3 +1,6 @@
 #pragma once
 
-void render_planets(void);
+#include <SDL3/SDL.h>
+#include "game/game.h"
+
+void render_planets(SDL_Renderer *renderer, const Game *game);

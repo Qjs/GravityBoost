@@ -2,7 +2,6 @@ CMakeFiles/GravityBoost.dir/src/render/render.c.o: \
  /home/quincy/code/GravityBoost/src/render/render.c \
  /usr/include/stdc-predef.h \
  /home/quincy/code/GravityBoost/src/render/render.h \
- /home/quincy/code/GravityBoost/src/render/render_ship.h \
  /home/quincy/code/GravityBoost/src/render/render_background.h \
  /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL.h \
  /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_stdinc.h \
@@ -87,5 +86,7 @@ CMakeFiles/GravityBoost.dir/src/render/render.c.o: \
  /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_version.h \
  /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_oldnames.h \
  /home/quincy/code/GravityBoost/src/utils/q_util.h \
+ /home/quincy/code/GravityBoost/src/render/render_ship.h \
+ /home/quincy/code/GravityBoost/src/game/game.h \
  /home/quincy/code/GravityBoost/src/render/render_planets.h \
  /home/quincy/code/GravityBoost/src/render/render_ui.h
