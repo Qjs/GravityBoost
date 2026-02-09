@@ -93,5 +93,12 @@ CMakeFiles/GravityBoost.dir/src/render/render.c.o: \
  /usr/include/bits/fp-fast.h /usr/include/bits/mathcalls-macros.h \
  /usr/include/bits/mathcalls-helper-functions.h \
  /usr/include/bits/mathcalls.h \
+ /home/quincy/code/GravityBoost/lib/box2d/src/../include/box2d/box2d.h \
+ /home/quincy/code/GravityBoost/lib/box2d/src/../include/box2d/base.h \
+ /home/quincy/code/GravityBoost/lib/box2d/src/../include/box2d/collision.h \
+ /home/quincy/code/GravityBoost/lib/box2d/src/../include/box2d/math_functions.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/float.h \
+ /home/quincy/code/GravityBoost/lib/box2d/src/../include/box2d/id.h \
+ /home/quincy/code/GravityBoost/lib/box2d/src/../include/box2d/types.h \
  /home/quincy/code/GravityBoost/src/render/render_planets.h \
  /home/quincy/code/GravityBoost/src/render/render_ui.h

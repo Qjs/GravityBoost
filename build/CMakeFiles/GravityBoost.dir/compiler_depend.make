@@ -18,6 +18,7 @@ CMakeFiles/GravityBoost.dir/src/data/json.c.o: /home/quincy/code/GravityBoost/sr
 
 CMakeFiles/GravityBoost.dir/src/game/game.c.o: /home/quincy/code/GravityBoost/src/game/game.c \
   /home/quincy/code/GravityBoost/src/game/game.h \
+  /home/quincy/code/GravityBoost/src/physics/phys_gravity.h \
   /home/quincy/code/GravityBoost/src/utils/q_util.h \
   /usr/include/bits/floatn-common.h \
   /usr/include/bits/floatn.h \
@@ -297,8 +298,41 @@ CMakeFiles/GravityBoost.dir/src/main.c.o: /home/quincy/code/GravityBoost/src/mai
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdint.h
 
 CMakeFiles/GravityBoost.dir/src/physics/phys_gravity.c.o: /home/quincy/code/GravityBoost/src/physics/phys_gravity.c \
+  /home/quincy/code/GravityBoost/src/game/game.h \
   /home/quincy/code/GravityBoost/src/physics/phys_gravity.h \
-  /usr/include/stdc-predef.h
+  /home/quincy/code/GravityBoost/src/utils/q_util.h \
+  /usr/include/bits/floatn-common.h \
+  /usr/include/bits/floatn.h \
+  /usr/include/bits/flt-eval-method.h \
+  /usr/include/bits/fp-fast.h \
+  /usr/include/bits/fp-logb.h \
+  /usr/include/bits/libc-header-start.h \
+  /usr/include/bits/libm-simd-decl-stubs.h \
+  /usr/include/bits/long-double.h \
+  /usr/include/bits/math-vector.h \
+  /usr/include/bits/mathcalls-helper-functions.h \
+  /usr/include/bits/mathcalls-macros.h \
+  /usr/include/bits/mathcalls.h \
+  /usr/include/bits/stdint-intn.h \
+  /usr/include/bits/stdint-least.h \
+  /usr/include/bits/stdint-uintn.h \
+  /usr/include/bits/time64.h \
+  /usr/include/bits/timesize.h \
+  /usr/include/bits/types.h \
+  /usr/include/bits/typesizes.h \
+  /usr/include/bits/wchar.h \
+  /usr/include/bits/wordsize.h \
+  /usr/include/features-time64.h \
+  /usr/include/features.h \
+  /usr/include/gnu/stubs-64.h \
+  /usr/include/gnu/stubs.h \
+  /usr/include/math.h \
+  /usr/include/stdc-predef.h \
+  /usr/include/stdint.h \
+  /usr/include/sys/cdefs.h \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdbool.h \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdint.h
 
 CMakeFiles/GravityBoost.dir/src/physics/physics.c.o: /home/quincy/code/GravityBoost/src/physics/physics.c \
   /home/quincy/code/GravityBoost/lib/box2d/include/box2d/base.h \
@@ -933,8 +967,6 @@ libcimgui.a:
 
 /home/quincy/code/GravityBoost/src/physics/physics.h:
 
-/home/quincy/code/GravityBoost/src/physics/phys_gravity.h:
-
 /home/quincy/code/GravityBoost/src/physics/phys_gravity.c:
 
 /usr/include/inttypes.h:
@@ -991,10 +1023,6 @@ CMakeFiles/GravityBoost.dir/src/data/json.c.o:
 
 /usr/include/gnu/stubs-64.h:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_events.h:
-
 /usr/include/stdint.h:
 
 /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_audio.h:
@@ -1007,11 +1035,21 @@ CMakeFiles/GravityBoost.dir/src/main.c.o:
 
 /usr/include/bits/wordsize.h:
 
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdint.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_cpuinfo.h:
+
+/usr/include/bits/types.h:
+
 /usr/include/sys/cdefs.h:
 
 /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_assert.h:
 
 /home/quincy/code/GravityBoost/src/game/game.h:
+
+/home/quincy/code/GravityBoost/src/physics/phys_gravity.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_metal.h:
 
 /usr/include/bits/wchar.h:
 
@@ -1020,8 +1058,6 @@ CMakeFiles/GravityBoost.dir/src/main.c.o:
 /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_mouse.h:
 
 /home/quincy/code/GravityBoost/src/data/json.c:
-
-/usr/include/bits/floatn.h:
 
 /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_dialog.h:
 
@@ -1067,13 +1103,11 @@ CMakeFiles/GravityBoost.dir/src/main.c.o:
 
 /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_log.h:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdint.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_cpuinfo.h:
-
-/usr/include/bits/types/FILE.h:
+/usr/include/bits/floatn.h:
 
 /home/quincy/code/GravityBoost/src/app/app.c:
+
+/usr/include/bits/types/FILE.h:
 
 /usr/include/bits/flt-eval-method.h:
 
@@ -1119,8 +1153,6 @@ CMakeFiles/GravityBoost.dir/src/main.c.o:
 
 /usr/include/bits/mathcalls-helper-functions.h:
 
-/usr/include/bits/types.h:
-
 /usr/include/bits/types/clock_t.h:
 
 /usr/include/bits/types/__fpos_t.h:
@@ -1134,6 +1166,10 @@ CMakeFiles/GravityBoost.dir/src/main.c.o:
 /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_gamepad.h:
 
 /usr/include/endian.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_events.h:
 
 /home/quincy/code/GravityBoost/lib/box2d/include/box2d/collision.h:
 
@@ -1186,8 +1222,6 @@ CMakeFiles/GravityBoost.dir/src/render/render_planets.c.o:
 /usr/include/bits/atomic_wide_counter.h:
 
 /home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_locale.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_metal.h:
 
 CMakeFiles/GravityBoost.dir/src/physics/phys_gravity.c.o:
 
@@ -1265,6 +1299,12 @@ lib/box2d/src/libbox2dd.a:
 
 /usr/include/bits/types/mbstate_t.h:
 
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_main.h:
+
+/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_platform.h:
+
+/usr/include/bits/types/wint_t.h:
+
 /usr/include/strings.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdarg.h:
@@ -1272,9 +1312,3 @@ lib/box2d/src/libbox2dd.a:
 /usr/include/stdio.h:
 
 /home/quincy/code/GravityBoost/src/main.c:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_platform.h:
-
-/usr/include/bits/types/wint_t.h:
-
-/home/quincy/code/GravityBoost/lib/SDL/include/SDL3/SDL_main.h:

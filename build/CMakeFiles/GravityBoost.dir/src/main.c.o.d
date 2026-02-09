@@ -91,21 +91,19 @@ CMakeFiles/GravityBoost.dir/src/main.c.o: \
  /usr/include/bits/stdio_lim.h \
  /home/quincy/code/GravityBoost/src/imgui_sdl3.h \
  /home/quincy/code/GravityBoost/src/utils/q_util.h \
+ /home/quincy/code/GravityBoost/src/game/game.h /usr/include/math.h \
+ /usr/include/bits/math-vector.h /usr/include/bits/libm-simd-decl-stubs.h \
+ /usr/include/bits/flt-eval-method.h /usr/include/bits/fp-logb.h \
+ /usr/include/bits/fp-fast.h /usr/include/bits/mathcalls-macros.h \
+ /usr/include/bits/mathcalls-helper-functions.h \
+ /usr/include/bits/mathcalls.h \
  /home/quincy/code/GravityBoost/lib/box2d/src/../include/box2d/box2d.h \
  /home/quincy/code/GravityBoost/lib/box2d/src/../include/box2d/base.h \
  /home/quincy/code/GravityBoost/lib/box2d/src/../include/box2d/collision.h \
  /home/quincy/code/GravityBoost/lib/box2d/src/../include/box2d/math_functions.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/float.h \
- /usr/include/math.h /usr/include/bits/math-vector.h \
- /usr/include/bits/libm-simd-decl-stubs.h \
- /usr/include/bits/flt-eval-method.h /usr/include/bits/fp-logb.h \
- /usr/include/bits/fp-fast.h /usr/include/bits/mathcalls-macros.h \
- /usr/include/bits/mathcalls-helper-functions.h \
- /usr/include/bits/mathcalls.h \
  /home/quincy/code/GravityBoost/lib/box2d/src/../include/box2d/id.h \
  /home/quincy/code/GravityBoost/lib/box2d/src/../include/box2d/types.h \
- /home/quincy/code/GravityBoost/lib/cJSON/cJSON.h \
- /home/quincy/code/GravityBoost/src/game/game.h \
  /home/quincy/code/GravityBoost/src/render/render.h \
  /home/quincy/code/GravityBoost/src/render/render_background.h \
  /home/quincy/code/GravityBoost/src/render/render_ship.h \

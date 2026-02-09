@@ -17,9 +17,16 @@ CMakeFiles/GravityBoost.dir/src/physics/phys_gravity.c.o: \
  /usr/include/bits/mathcalls-macros.h \
  /usr/include/bits/mathcalls-helper-functions.h \
  /usr/include/bits/mathcalls.h \
- /home/quincy/code/GravityBoost/src/utils/q_util.h \
- /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h \
+ /home/quincy/code/GravityBoost/lib/box2d/src/../include/box2d/box2d.h \
+ /home/quincy/code/GravityBoost/lib/box2d/src/../include/box2d/base.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdint.h \
  /usr/include/stdint.h /usr/include/bits/wchar.h \
  /usr/include/bits/stdint-intn.h /usr/include/bits/stdint-uintn.h \
- /usr/include/bits/stdint-least.h
+ /usr/include/bits/stdint-least.h \
+ /home/quincy/code/GravityBoost/lib/box2d/src/../include/box2d/collision.h \
+ /home/quincy/code/GravityBoost/lib/box2d/src/../include/box2d/math_functions.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/float.h \
+ /home/quincy/code/GravityBoost/lib/box2d/src/../include/box2d/id.h \
+ /home/quincy/code/GravityBoost/lib/box2d/src/../include/box2d/types.h \
+ /home/quincy/code/GravityBoost/src/utils/q_util.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h

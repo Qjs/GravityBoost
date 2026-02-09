@@ -8,8 +8,6 @@
 #include "imgui_sdl3.h"
 #include "utils/q_util.h"
 
-#include <box2d/box2d.h>
-#include "cJSON.h"
 #include "game/game.h"
 #include "render/render.h"
 
@@ -22,7 +20,6 @@ typedef struct {
   SDL_Renderer *renderer;
   SDL_Texture *texture;
   u64 last_ticks;
-  b2WorldId world_id;
   Game game;
 } AppState;
 
@@ -68,23 +65,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 
     state->last_ticks = SDL_GetTicks();
 
-    // Create Box2D world (proves Box2D links)
-    b2WorldDef world_def = b2DefaultWorldDef();
-    world_def.gravity = (b2Vec2){0.0f, -9.81f};
-    state->world_id = b2CreateWorld(&world_def);
-    SDL_Log("Box2D world created");
-
-    // Test cJSON (proves cJSON links)
-    cJSON *json = cJSON_Parse("{\"game\":\"GravityBoost\"}");
-    if (json) {
-        cJSON *item = cJSON_GetObjectItem(json, "game");
-        if (cJSON_IsString(item)) {
-            SDL_Log("cJSON OK: game = %s", item->valuestring);
-        }
-        cJSON_Delete(json);
-    }
-
-    // Init game state with test level
+    // Init game state (creates Box2D world + bodies)
     if (!game_init(&state->game)) {
         SDL_Log("game_init failed");
         return SDL_APP_FAILURE;
@@ -108,8 +89,10 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
         if (event->key.key == SDLK_ESCAPE)
             return SDL_APP_SUCCESS;
         // R to reset to aim state
-        if (event->key.key == SDLK_R)
+        if (event->key.key == SDLK_R) {
+            game_shutdown(&state->game);
             game_init(&state->game);
+        }
         break;
 
     case SDL_EVENT_MOUSE_BUTTON_DOWN:
@@ -143,11 +126,8 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
     f32 dt = (f32)(now - state->last_ticks) / 1000.0f;
     state->last_ticks = now;
 
-    // Update game
+    // Update game (Box2D steps inside)
     game_update(&state->game, dt);
-
-    // Step Box2D world
-    b2World_Step(state->world_id, dt, 4);
 
     // Clear
     SDL_SetRenderDrawColor(state->renderer, 10, 10, 18, 255);
@@ -188,7 +168,6 @@ void SDL_AppQuit(void *appstate, SDL_AppResult result) {
     if (!state) return;
 
     game_shutdown(&state->game);
-    b2DestroyWorld(state->world_id);
     ImGui_SDL3_Shutdown();
 
     if (state->texture)  SDL_DestroyTexture(state->texture);

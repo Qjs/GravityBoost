@@ -1,6 +1,7 @@
 #pragma once
 #include <stdbool.h>
 #include <math.h>
+#include <box2d/box2d.h>
 #include "utils/q_util.h"
 
 #define MAX_PLANETS 16
@@ -52,6 +53,14 @@ typedef struct {
 } AimState;
 
 typedef struct {
+    bool       active;
+    b2WorldId  world;
+    b2BodyId   ship_body;
+    b2BodyId   goal_body;
+    b2BodyId   planet_bodies[MAX_PLANETS];
+} PhysState;
+
+typedef struct {
     GameState state;
     Camera    cam;
     Ship      ship;
@@ -60,6 +69,7 @@ typedef struct {
     s32       planet_count;
     f32       vel_max;
     AimState  aim;
+    PhysState phys;
 } Game;
 
 bool game_init(Game *game);
@@ -75,7 +85,6 @@ static inline f32 world_to_screen_x(const Camera *c, f32 wx) {
 }
 
 static inline f32 world_to_screen_y(const Camera *c, f32 wy) {
-    // Flip Y: world Y-up -> screen Y-down
     return -(wy - c->cam_y) * c->ppm + c->screen_h * 0.5f;
 }
 
@@ -91,7 +100,6 @@ static inline f32 screen_to_world_y(const Camera *c, f32 sy) {
     return -(sy - c->screen_h * 0.5f) / c->ppm + c->cam_y;
 }
 
-// Vec2 helpers
 static inline f32 vec2_len(Vec2 v) {
     return sqrtf(v.x * v.x + v.y * v.y);
 }
