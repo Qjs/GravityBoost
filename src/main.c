@@ -10,6 +10,7 @@
 
 #include <box2d/box2d.h>
 #include "cJSON.h"
+#include "render/render_background.h"
 
 #define WINDOW_SIZE 800
 
@@ -134,8 +135,11 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
     b2World_Step(state->world_id, dt, 4);
 
     // Clear
-    SDL_SetRenderDrawColor(state->renderer, 20, 20, 30, 255);
+    SDL_SetRenderDrawColor(state->renderer, 10, 10, 18, 255);
     SDL_RenderClear(state->renderer);
+
+    // Parallax starfield
+    render_background(state->renderer, dt);
 
     // ImGui frame
     ImGui_SDL3_NewFrame();

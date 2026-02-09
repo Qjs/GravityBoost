@@ -104,4 +104,5 @@ CMakeFiles/GravityBoost.dir/src/main.c.o: \
  /usr/include/bits/mathcalls.h \
  /home/quincy/code/GravityBoost/lib/box2d/src/../include/box2d/id.h \
  /home/quincy/code/GravityBoost/lib/box2d/src/../include/box2d/types.h \
- /home/quincy/code/GravityBoost/lib/cJSON/cJSON.h
+ /home/quincy/code/GravityBoost/lib/cJSON/cJSON.h \
+ /home/quincy/code/GravityBoost/src/render/render_background.h
