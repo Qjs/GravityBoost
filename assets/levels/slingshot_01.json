@@ -1,0 +1,52 @@
+{
+    "name": "Slingshot 01",
+    "ppm": 50.0,
+    "bounds": {
+        "min": [
+            -20,
+            -12
+        ],
+        "max": [
+            20,
+            12
+        ]
+    },
+    "start": {
+        "pos": [
+            -15,
+            0
+        ],
+        "vel_max": 18.0
+    },
+    "goal": {
+        "pos": [
+            15,
+            0
+        ],
+        "radius": 1.2
+    },
+    "ship": {
+        "radius": 0.25,
+        "density": 1.0,
+        "restitution": 0.1
+    },
+    "planets": [
+        {
+            "pos": [
+                0,
+                0
+            ],
+            "radius": 2.2,
+            "mu": 60.0,
+            "eps": 0.6
+        }
+    ],
+    "allow_place": {
+        "sink": true,
+        "repel": true,
+        "max": 3
+    },
+    "ui": {
+        "show_field_default": false
+    }
+}
