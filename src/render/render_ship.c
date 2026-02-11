@@ -39,7 +39,7 @@ static void fill_triangle(SDL_Renderer *renderer,
 
 static void draw_aim_line(SDL_Renderer *renderer, const Game *game) {
     const Camera *cam = &game->cam;
-    const Ship *ship = &game->ship;
+    const Ship *ship = &game->ships[0];
     const AimState *aim = &game->aim;
 
     f32 ship_sx = world_to_screen_x(cam, ship->pos.x);
@@ -105,16 +105,14 @@ static void draw_aim_line(SDL_Renderer *renderer, const Game *game) {
     }
 }
 
-void render_ship(SDL_Renderer *renderer, const Game *game) {
-    const Camera *cam = &game->cam;
-    const Ship *ship = &game->ship;
-
+static void draw_one_ship(SDL_Renderer *renderer, const Camera *cam,
+                           const Ship *ship, bool is_leader, bool is_arrived,
+                           bool is_playing) {
     f32 sx = world_to_screen_x(cam, ship->pos.x);
     f32 sy = world_to_screen_y(cam, ship->pos.y);
     f32 sr = world_to_screen_r(cam, ship->radius);
 
     // Ship is a triangle pointing in the direction of ship->angle
-    // Scale: ~3x the physics radius for visibility
     f32 size = sr * 3.0f;
     if (size < 8.0f) size = 8.0f;
 
@@ -122,7 +120,7 @@ void render_ship(SDL_Renderer *renderer, const Game *game) {
 
     // Nose (front)
     f32 nx = sx + cosf(a) * size;
-    f32 ny = sy - sinf(a) * size;  // screen Y is flipped
+    f32 ny = sy - sinf(a) * size;
 
     // Left wing
     f32 lx = sx + cosf(a + 2.4f) * size * 0.7f;
@@ -132,8 +130,8 @@ void render_ship(SDL_Renderer *renderer, const Game *game) {
     f32 rx = sx + cosf(a - 2.4f) * size * 0.7f;
     f32 ry = sy - sinf(a - 2.4f) * size * 0.7f;
 
-    // Engine glow (only when moving)
-    if (game->state == GAME_STATE_PLAYING) {
+    // Engine glow (only when playing and not arrived)
+    if (is_playing && !is_arrived) {
         f32 ex = sx - cosf(a) * size * 0.5f;
         f32 ey = sy + sinf(a) * size * 0.5f;
 
@@ -148,17 +146,69 @@ void render_ship(SDL_Renderer *renderer, const Game *game) {
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
     }
 
-    // Ship body
-    SDL_SetRenderDrawColor(renderer, 200, 220, 255, 255);
+    // Ship body color
+    if (is_arrived) {
+        // Arrived ships: faded green
+        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+        SDL_SetRenderDrawColor(renderer, 100, 255, 140, 120);
+    } else if (is_leader) {
+        // Leader: light blue
+        SDL_SetRenderDrawColor(renderer, 200, 220, 255, 255);
+    } else {
+        // Follower: more cyan/green tint
+        SDL_SetRenderDrawColor(renderer, 160, 240, 230, 255);
+    }
     fill_triangle(renderer, nx, ny, lx, ly, rx, ry);
 
     // Ship outline
-    SDL_SetRenderDrawColor(renderer, 140, 180, 255, 255);
+    if (is_arrived) {
+        SDL_SetRenderDrawColor(renderer, 60, 200, 100, 120);
+    } else if (is_leader) {
+        SDL_SetRenderDrawColor(renderer, 140, 180, 255, 255);
+    } else {
+        SDL_SetRenderDrawColor(renderer, 100, 200, 200, 255);
+    }
     SDL_RenderLine(renderer, nx, ny, lx, ly);
     SDL_RenderLine(renderer, lx, ly, rx, ry);
     SDL_RenderLine(renderer, rx, ry, nx, ny);
 
-    // Aim line (while dragging)
+    if (is_arrived) {
+        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
+    }
+}
+
+void render_ship(SDL_Renderer *renderer, const Game *game) {
+    const Camera *cam = &game->cam;
+    bool is_playing = (game->state == GAME_STATE_PLAYING);
+
+    // Draw tether lines from leader to alive followers
+    if (game->fleet_count > 1 && game->ships[0].alive && !game->ships[0].arrived) {
+        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+        SDL_SetRenderDrawColor(renderer, 200, 200, 200, 80);
+
+        f32 leader_sx = world_to_screen_x(cam, game->ships[0].pos.x);
+        f32 leader_sy = world_to_screen_y(cam, game->ships[0].pos.y);
+
+        for (s32 i = 1; i < game->fleet_count; i++) {
+            if (!game->ships[i].alive || game->ships[i].arrived) continue;
+
+            f32 fsx = world_to_screen_x(cam, game->ships[i].pos.x);
+            f32 fsy = world_to_screen_y(cam, game->ships[i].pos.y);
+            SDL_RenderLine(renderer, leader_sx, leader_sy, fsx, fsy);
+        }
+
+        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
+    }
+
+    // Draw each ship
+    for (s32 i = 0; i < game->fleet_count; i++) {
+        const Ship *ship = &game->ships[i];
+        if (!ship->alive && !ship->arrived) continue;
+
+        draw_one_ship(renderer, cam, ship, i == 0, ship->arrived, is_playing);
+    }
+
+    // Aim line (while dragging) — from leader only
     if (game->aim.aiming) {
         draw_aim_line(renderer, game);
     }

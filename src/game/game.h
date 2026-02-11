@@ -5,6 +5,7 @@
 #include "utils/q_util.h"
 
 #define MAX_PLANETS 16
+#define MAX_FLEET   10
 
 typedef enum {
     GAME_STATE_MENU,
@@ -31,6 +32,8 @@ typedef struct {
     Vec2 vel;
     f32  radius;
     f32  angle;    // rotation in radians
+    bool alive;    // false = destroyed by planet collision
+    bool arrived;  // true = reached goal sensor
 } Ship;
 
 typedef struct {
@@ -55,7 +58,7 @@ typedef struct {
 typedef struct {
     bool       active;
     b2WorldId  world;
-    b2BodyId   ship_body;
+    b2BodyId   ship_bodies[MAX_FLEET];     // one per fleet ship
     b2BodyId   goal_body;
     b2BodyId   planet_bodies[MAX_PLANETS];
 } PhysState;
@@ -63,13 +66,18 @@ typedef struct {
 typedef struct {
     GameState state;
     Camera    cam;
-    Ship      ship;
+    Ship      ships[MAX_FLEET];        // ships[0] = leader
+    s32       fleet_count;             // total ships (from JSON, default 1)
+    s32       required_ships;          // ships needed at goal to win (default 1)
+    s32       alive_count;             // ships not destroyed
+    s32       arrived_count;           // ships that reached goal
     Goal      goal;
     Planet    planets[MAX_PLANETS];
     s32       planet_count;
     f32       vel_max;
     AimState  aim;
     PhysState phys;
+    bool      show_field;
 } Game;
 
 bool game_init(Game *game, const char *level_path);

@@ -152,13 +152,15 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
 
     // Game objects
     render_planets(state->renderer, &state->game);
+    if (state->game.show_field)
+        render_gravity_field(state->renderer, &state->game);
     render_ship(state->renderer, &state->game);
 
     // ImGui frame
     ImGui_SDL3_NewFrame();
 
     igSetNextWindowPos((ImVec2){10, 10}, ImGuiCond_FirstUseEver, (ImVec2){0, 0});
-    igSetNextWindowSize((ImVec2){250, 150}, ImGuiCond_FirstUseEver);
+    igSetNextWindowSize((ImVec2){250, 180}, ImGuiCond_FirstUseEver);
     igBegin("GravityBoost", NULL, 0);
     igText("FPS: %.1f", 1.0f / (dt > 0.0001f ? dt : 0.016f));
     igSeparator();
@@ -169,6 +171,11 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
         game_shutdown(&state->game);
         game_init(&state->game, level_paths[state->level_idx]);
     }
+
+    igCheckbox("Gravity Field", &state->game.show_field);
+    igSeparator();
+    igText("Fleet: %d/%d alive", state->game.alive_count, state->game.fleet_count);
+    igText("Arrived: %d/%d required", state->game.arrived_count, state->game.required_ships);
 
     igEnd();
 

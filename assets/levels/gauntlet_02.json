@@ -43,6 +43,10 @@
         "repel": true,
         "max": 3
     },
+    "fleet": {
+        "count": 5,
+        "required": 3
+    },
     "ui": {
         "show_field_default": false
     }

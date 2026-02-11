@@ -55,6 +55,7 @@ add_executable(GravityBoost
     src/render/render_background.c
     src/render/render_planets.c
     src/render/render_ui.c
+    src/render/render_field.c
     src/data/json.c
     src/data/fs.c
 )

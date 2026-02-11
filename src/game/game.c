@@ -1,6 +1,7 @@
 #include "game/game.h"
 #include "data/json.h"
 #include "physics/physics.h"
+#include <math.h>
 
 bool game_init(Game *game, const char *level_path) {
     game->state = GAME_STATE_AIM;
@@ -11,13 +12,37 @@ bool game_init(Game *game, const char *level_path) {
     game->cam.screen_w = 1280;
     game->cam.screen_h = 720;
 
+    // Fleet defaults (before JSON overrides)
+    game->fleet_count    = 1;
+    game->required_ships = 1;
+
     // Load level data from JSON
     if (!json_load(level_path, game))
         return false;
 
-    // Zero out runtime state (not from JSON)
-    game->ship.vel   = (Vec2){ 0.0f, 0.0f };
-    game->ship.angle = 0.0f;
+    // Initialize fleet ships in circular formation around leader
+    Vec2 start_pos = game->ships[0].pos;
+    f32  ship_radius = game->ships[0].radius;
+
+    for (s32 i = 0; i < game->fleet_count; i++) {
+        game->ships[i].vel     = (Vec2){ 0.0f, 0.0f };
+        game->ships[i].angle   = 0.0f;
+        game->ships[i].radius  = ship_radius;
+        game->ships[i].alive   = true;
+        game->ships[i].arrived = false;
+
+        if (i > 0) {
+            // Place followers in a semicircle behind the leader
+            s32 n = game->fleet_count - 1;
+            f32 spread = (f32)M_PI;  // 180 degree arc behind leader
+            f32 angle = (f32)M_PI - spread * 0.5f + spread * (f32)(i - 1) / (f32)(n > 1 ? n - 1 : 1);
+            game->ships[i].pos.x = start_pos.x + cosf(angle) * 1.0f;
+            game->ships[i].pos.y = start_pos.y + sinf(angle) * 1.0f;
+        }
+    }
+
+    game->alive_count   = game->fleet_count;
+    game->arrived_count = 0;
     game->aim = (AimState){ .aiming = false };
 
     // Create Box2D world and bodies
@@ -53,8 +78,8 @@ void game_aim_release(Game *game, f32 screen_x, f32 screen_y) {
     f32 wy = screen_to_world_y(&game->cam, screen_y);
 
     Vec2 dir = {
-        wx - game->ship.pos.x,
-        wy - game->ship.pos.y,
+        wx - game->ships[0].pos.x,
+        wy - game->ships[0].pos.y,
     };
 
     f32 len = vec2_len(dir);
@@ -68,11 +93,11 @@ void game_aim_release(Game *game, f32 screen_x, f32 screen_y) {
         dir.y / len * speed,
     };
 
-    // Set velocity on the Box2D body
+    // Set velocity on the leader Box2D body (followers follow via springs)
     physics_launch(game, vel);
 
-    game->ship.vel = vel;
-    game->ship.angle = atan2f(dir.y, dir.x);
+    game->ships[0].vel = vel;
+    game->ships[0].angle = atan2f(dir.y, dir.x);
     game->state = GAME_STATE_PLAYING;
 }
 

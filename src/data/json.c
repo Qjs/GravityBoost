@@ -35,7 +35,7 @@ bool json_load(const char *path, Game *game) {
     cJSON *start = cJSON_GetObjectItem(root, "start");
     if (start) {
         cJSON *pos = cJSON_GetObjectItem(start, "pos");
-        if (pos) parse_vec2(pos, &game->ship.pos);
+        if (pos) parse_vec2(pos, &game->ships[0].pos);
 
         cJSON *vel_max = cJSON_GetObjectItem(start, "vel_max");
         if (cJSON_IsNumber(vel_max))
@@ -47,7 +47,7 @@ bool json_load(const char *path, Game *game) {
     if (ship) {
         cJSON *radius = cJSON_GetObjectItem(ship, "radius");
         if (cJSON_IsNumber(radius))
-            game->ship.radius = (f32)radius->valuedouble;
+            game->ships[0].radius = (f32)radius->valuedouble;
     }
 
     // goal
@@ -87,6 +87,26 @@ bool json_load(const char *path, Game *game) {
             if (cJSON_IsNumber(eps))
                 planet->eps = (f32)eps->valuedouble;
         }
+    }
+
+    // fleet config
+    cJSON *fleet = cJSON_GetObjectItem(root, "fleet");
+    if (fleet) {
+        cJSON *count = cJSON_GetObjectItem(fleet, "count");
+        if (cJSON_IsNumber(count))
+            game->fleet_count = (s32)count->valuedouble;
+
+        cJSON *required = cJSON_GetObjectItem(fleet, "required");
+        if (cJSON_IsNumber(required))
+            game->required_ships = (s32)required->valuedouble;
+    }
+
+    // ui
+    cJSON *ui = cJSON_GetObjectItem(root, "ui");
+    if (ui) {
+        cJSON *show_field = cJSON_GetObjectItem(ui, "show_field_default");
+        if (cJSON_IsBool(show_field))
+            game->show_field = cJSON_IsTrue(show_field);
     }
 
     cJSON_Delete(root);
