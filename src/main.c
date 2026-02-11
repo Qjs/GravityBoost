@@ -125,6 +125,16 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
         game_aim_move(&state->game, event->motion.x, event->motion.y);
         break;
 
+    case SDL_EVENT_MOUSE_WHEEL:
+        if (!imgui_wants_mouse) {
+            Camera *cam = &state->game.cam;
+            float factor = (event->wheel.y > 0) ? 1.1f : 1.0f / 1.1f;
+            cam->ppm *= factor;
+            if (cam->ppm < 5.0f)  cam->ppm = 5.0f;
+            if (cam->ppm > 200.0f) cam->ppm = 200.0f;
+        }
+        break;
+
     default:
         break;
     }
@@ -149,6 +159,9 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
 
     // Parallax starfield
     render_background(state->renderer, dt);
+
+    // Level bounds
+    render_bounds(state->renderer, &state->game);
 
     // Game objects
     render_planets(state->renderer, &state->game);

@@ -75,6 +75,8 @@ typedef struct {
     Planet    planets[MAX_PLANETS];
     s32       planet_count;
     f32       vel_max;
+    Vec2      bounds_min;              // world-space level bounds
+    Vec2      bounds_max;
     AimState  aim;
     PhysState phys;
     bool      show_field;

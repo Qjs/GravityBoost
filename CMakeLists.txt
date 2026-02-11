@@ -53,6 +53,7 @@ add_executable(GravityBoost
     src/render/render.c
     src/render/render_ship.c
     src/render/render_background.c
+    src/render/render_bounds.c
     src/render/render_planets.c
     src/render/render_ui.c
     src/render/render_field.c

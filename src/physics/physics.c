@@ -216,6 +216,24 @@ void physics_step(Game *game, f32 dt) {
         }
     }
 
+    // Check out-of-bounds (ship leaving the level area = destroy that ship)
+    for (s32 i = 0; i < game->fleet_count; i++) {
+        if (!game->ships[i].alive || game->ships[i].arrived) continue;
+
+        Vec2 p = game->ships[i].pos;
+        if (p.x < game->bounds_min.x || p.x > game->bounds_max.x ||
+            p.y < game->bounds_min.y || p.y > game->bounds_max.y) {
+            game->ships[i].alive = false;
+            game->alive_count--;
+            b2Body_Disable(ps->ship_bodies[i]);
+
+            if (game->alive_count < game->required_ships) {
+                game->state = GAME_STATE_FAIL;
+                return;
+            }
+        }
+    }
+
     // Check contact events (ship hitting a planet = destroy that ship)
     b2ContactEvents contacts = b2World_GetContactEvents(ps->world);
     for (int i = 0; i < contacts.beginCount; i++) {

@@ -31,6 +31,15 @@ bool json_load(const char *path, Game *game) {
     if (cJSON_IsNumber(ppm))
         game->cam.ppm = (f32)ppm->valuedouble;
 
+    // bounds
+    cJSON *bounds = cJSON_GetObjectItem(root, "bounds");
+    if (bounds) {
+        cJSON *bmin = cJSON_GetObjectItem(bounds, "min");
+        cJSON *bmax = cJSON_GetObjectItem(bounds, "max");
+        if (bmin) parse_vec2(bmin, &game->bounds_min);
+        if (bmax) parse_vec2(bmax, &game->bounds_max);
+    }
+
     // start
     cJSON *start = cJSON_GetObjectItem(root, "start");
     if (start) {
