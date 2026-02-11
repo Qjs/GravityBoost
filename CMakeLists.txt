@@ -57,11 +57,12 @@ add_executable(GravityBoost
     src/render/render_planets.c
     src/render/render_ui.c
     src/render/render_field.c
+    src/render/planet_gen.c
     src/data/json.c
     src/data/fs.c
 )
 
-target_include_directories(GravityBoost PRIVATE src)
+target_include_directories(GravityBoost PRIVATE src lib/stb)
 target_link_libraries(GravityBoost PRIVATE
     SDL3::SDL3-static
     cimgui

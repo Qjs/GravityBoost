@@ -104,6 +104,13 @@ void game_aim_release(Game *game, f32 screen_x, f32 screen_y) {
 void game_update(Game *game, float dt) {
     // Box2D handles integration, collisions, and goal detection
     physics_step(game, dt);
+
+    // Rotate planet textures
+    for (s32 i = 0; i < game->planet_count; i++) {
+        game->planets[i].rotation_angle += game->planets[i].rotation_speed * dt;
+        if (game->planets[i].rotation_angle >= 360.0f)
+            game->planets[i].rotation_angle -= 360.0f;
+    }
 }
 
 void game_shutdown(Game *game) {

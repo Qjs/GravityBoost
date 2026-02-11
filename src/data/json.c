@@ -95,6 +95,30 @@ bool json_load(const char *path, Game *game) {
             cJSON *eps = cJSON_GetObjectItem(p, "eps");
             if (cJSON_IsNumber(eps))
                 planet->eps = (f32)eps->valuedouble;
+
+            // Optional visual fields
+            cJSON *seed_j = cJSON_GetObjectItem(p, "seed");
+            if (cJSON_IsNumber(seed_j)) {
+                planet->seed = (u32)seed_j->valuedouble;
+            } else {
+                // Deterministic seed from position
+                u32 hx = *(u32 *)&planet->pos.x;
+                u32 hy = *(u32 *)&planet->pos.y;
+                planet->seed = hx * 2654435761u ^ hy * 2246822519u ^ (u32)i;
+            }
+
+            cJSON *type_j = cJSON_GetObjectItem(p, "type");
+            if (cJSON_IsNumber(type_j)) {
+                planet->type = (PlanetType)((int)type_j->valuedouble % PLANET_TYPE_COUNT);
+            } else {
+                planet->type = (PlanetType)(planet->seed % PLANET_TYPE_COUNT);
+            }
+
+            // Rotation speed varies by type
+            f32 base_speeds[] = { 2.0f, 3.0f, 8.0f, 1.5f, 5.0f };
+            planet->rotation_speed = base_speeds[planet->type];
+            planet->rotation_angle = 0.0f;
+            planet->texture = NULL;
         }
     }
 

@@ -10,6 +10,7 @@
 
 #include "game/game.h"
 #include "render/render.h"
+#include "render/planet_gen.h"
 
 #define WINDOW_W 1280
 #define WINDOW_H 720
@@ -84,6 +85,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
         SDL_Log("game_init failed");
         return SDL_APP_FAILURE;
     }
+    planet_textures_generate(state->renderer, &state->game);
 
     return SDL_APP_CONTINUE;
 }
@@ -104,8 +106,10 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
             return SDL_APP_SUCCESS;
         // R to reset to aim state
         if (event->key.key == SDLK_R) {
+            planet_textures_destroy(&state->game);
             game_shutdown(&state->game);
             game_init(&state->game, level_paths[state->level_idx]);
+            planet_textures_generate(state->renderer, &state->game);
         }
         break;
 
@@ -181,8 +185,10 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
     int prev_idx = state->level_idx;
     igCombo_Str_arr("Level", &state->level_idx, level_names, NUM_LEVELS, -1);
     if (state->level_idx != prev_idx) {
+        planet_textures_destroy(&state->game);
         game_shutdown(&state->game);
         game_init(&state->game, level_paths[state->level_idx]);
+        planet_textures_generate(state->renderer, &state->game);
     }
 
     igCheckbox("Gravity Field", &state->game.show_field);
@@ -204,6 +210,7 @@ void SDL_AppQuit(void *appstate, SDL_AppResult result) {
     AppState *state = appstate;
     if (!state) return;
 
+    planet_textures_destroy(&state->game);
     game_shutdown(&state->game);
     ImGui_SDL3_Shutdown();
 

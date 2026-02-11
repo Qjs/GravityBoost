@@ -4,8 +4,19 @@
 #include <box2d/box2d.h>
 #include "utils/q_util.h"
 
+struct SDL_Texture;
+
 #define MAX_PLANETS 16
 #define MAX_FLEET   10
+
+typedef enum {
+    PLANET_TYPE_ROCKY,
+    PLANET_TYPE_TERRESTRIAL,
+    PLANET_TYPE_GAS_GIANT,
+    PLANET_TYPE_ICE,
+    PLANET_TYPE_VOLCANIC,
+    PLANET_TYPE_COUNT,
+} PlanetType;
 
 typedef enum {
     GAME_STATE_MENU,
@@ -23,8 +34,13 @@ typedef struct {
 typedef struct {
     Vec2 pos;
     f32  radius;
-    f32  mu;       // gravitational parameter
-    f32  eps;      // softening parameter
+    f32  mu;              // gravitational parameter
+    f32  eps;             // softening parameter
+    u32  seed;            // visual seed (derived from position if not in JSON)
+    PlanetType type;      // determines color palette
+    struct SDL_Texture *texture;  // generated at level load, NULL initially
+    f32  rotation_speed;  // degrees/sec (derived from type)
+    f32  rotation_angle;  // current angle, updated in game_update
 } Planet;
 
 typedef struct {
