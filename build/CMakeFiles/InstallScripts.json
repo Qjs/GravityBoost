@@ -1,10 +1,10 @@
 {
 	"InstallScripts" : 
 	[
-		"/home/quincy/code/GravityBoost/build/cmake_install.cmake",
-		"/home/quincy/code/GravityBoost/build/lib/SDL/cmake_install.cmake",
-		"/home/quincy/code/GravityBoost/build/lib/box2d/cmake_install.cmake",
-		"/home/quincy/code/GravityBoost/build/lib/box2d/src/cmake_install.cmake"
+		"/home/quincy/code/gh_repos/GravityBoost/build/cmake_install.cmake",
+		"/home/quincy/code/gh_repos/GravityBoost/build/lib/SDL/cmake_install.cmake",
+		"/home/quincy/code/gh_repos/GravityBoost/build/lib/box2d/cmake_install.cmake",
+		"/home/quincy/code/gh_repos/GravityBoost/build/lib/box2d/src/cmake_install.cmake"
 	],
 	"Parallel" : false
 }

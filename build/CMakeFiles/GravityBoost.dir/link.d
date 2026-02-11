@@ -1,7 +1,7 @@
 GravityBoost: \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/Scrt1.o \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/crti.o \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o \
+  /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/Scrt1.o \
+  /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/crti.o \
+  /usr/lib/gcc/x86_64-linux-gnu/14/crtbeginS.o \
   CMakeFiles/GravityBoost.dir/src/main.c.o \
   CMakeFiles/GravityBoost.dir/src/imgui_sdl3.cpp.o \
   CMakeFiles/GravityBoost.dir/src/app/app.c.o \
@@ -17,48 +17,48 @@ GravityBoost: \
   CMakeFiles/GravityBoost.dir/src/data/fs.c.o \
   lib/SDL/libSDL3.a \
   libcimgui.a \
-  lib/box2d/src/libbox2dd.a \
+  lib/box2d/src/libbox2d.a \
   libcjson_lib.a \
   lib/SDL/libSDL3.a \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libm.so \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libm.so \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libm.so \
-  /usr/lib/libm.so.6 \
-  /usr/lib/libmvec.so.1 \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libstdc++.so \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libm.so \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libm.so \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libm.so \
-  /usr/lib/libm.so.6 \
-  /usr/lib/libmvec.so.1 \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libgcc_s.so \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libgcc_s.so \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libgcc_s.so \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libgcc_s.so.1 \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/libgcc.a \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/libgcc.a \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libpthread.a \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libc.so \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libc.so \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libc.so \
-  /usr/lib/libc.so.6 \
-  /usr/lib/libc_nonshared.a \
-  /usr/lib/ld-linux-x86-64.so.2 \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libgcc_s.so \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libgcc_s.so \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libgcc_s.so \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libgcc_s.so.1 \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/libgcc.a \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/libgcc.a \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/crtn.o \
-  /usr/lib/ld-linux-x86-64.so.2
+  /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libm.so \
+  /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libm.so \
+  /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libm.so \
+  /lib/x86_64-linux-gnu/libm.so.6 \
+  /lib/x86_64-linux-gnu/libmvec.so.1 \
+  /usr/lib/gcc/x86_64-linux-gnu/14/libstdc++.so \
+  /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libm.so \
+  /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libm.so \
+  /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libm.so \
+  /lib/x86_64-linux-gnu/libm.so.6 \
+  /lib/x86_64-linux-gnu/libmvec.so.1 \
+  /usr/lib/gcc/x86_64-linux-gnu/14/libgcc_s.so \
+  /usr/lib/gcc/x86_64-linux-gnu/14/libgcc_s.so \
+  /usr/lib/gcc/x86_64-linux-gnu/14/libgcc_s.so \
+  /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libgcc_s.so.1 \
+  /usr/lib/gcc/x86_64-linux-gnu/14/libgcc.a \
+  /usr/lib/gcc/x86_64-linux-gnu/14/libgcc.a \
+  /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libpthread.a \
+  /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libc.so \
+  /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libc.so \
+  /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libc.so \
+  /lib/x86_64-linux-gnu/libc.so.6 \
+  /usr/lib/x86_64-linux-gnu/libc_nonshared.a \
+  /lib64/ld-linux-x86-64.so.2 \
+  /usr/lib/gcc/x86_64-linux-gnu/14/libgcc_s.so \
+  /usr/lib/gcc/x86_64-linux-gnu/14/libgcc_s.so \
+  /usr/lib/gcc/x86_64-linux-gnu/14/libgcc_s.so \
+  /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libgcc_s.so.1 \
+  /usr/lib/gcc/x86_64-linux-gnu/14/libgcc.a \
+  /usr/lib/gcc/x86_64-linux-gnu/14/libgcc.a \
+  /usr/lib/gcc/x86_64-linux-gnu/14/crtendS.o \
+  /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/crtn.o \
+  /lib64/ld-linux-x86-64.so.2
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/Scrt1.o:
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/Scrt1.o:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/crti.o:
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/crti.o:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o:
+/usr/lib/gcc/x86_64-linux-gnu/14/crtbeginS.o:
 
 CMakeFiles/GravityBoost.dir/src/main.c.o:
 
@@ -90,74 +90,74 @@ lib/SDL/libSDL3.a:
 
 libcimgui.a:
 
-lib/box2d/src/libbox2dd.a:
+lib/box2d/src/libbox2d.a:
 
 libcjson_lib.a:
 
 lib/SDL/libSDL3.a:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libm.so:
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libm.so:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libm.so:
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libm.so:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libm.so:
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libm.so:
 
-/usr/lib/libm.so.6:
+/lib/x86_64-linux-gnu/libm.so.6:
 
-/usr/lib/libmvec.so.1:
+/lib/x86_64-linux-gnu/libmvec.so.1:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libstdc++.so:
+/usr/lib/gcc/x86_64-linux-gnu/14/libstdc++.so:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libm.so:
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libm.so:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libm.so:
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libm.so:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libm.so:
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libm.so:
 
-/usr/lib/libm.so.6:
+/lib/x86_64-linux-gnu/libm.so.6:
 
-/usr/lib/libmvec.so.1:
+/lib/x86_64-linux-gnu/libmvec.so.1:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libgcc_s.so:
+/usr/lib/gcc/x86_64-linux-gnu/14/libgcc_s.so:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libgcc_s.so:
+/usr/lib/gcc/x86_64-linux-gnu/14/libgcc_s.so:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libgcc_s.so:
+/usr/lib/gcc/x86_64-linux-gnu/14/libgcc_s.so:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libgcc_s.so.1:
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libgcc_s.so.1:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/libgcc.a:
+/usr/lib/gcc/x86_64-linux-gnu/14/libgcc.a:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/libgcc.a:
+/usr/lib/gcc/x86_64-linux-gnu/14/libgcc.a:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libpthread.a:
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libpthread.a:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libc.so:
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libc.so:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libc.so:
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libc.so:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libc.so:
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libc.so:
 
-/usr/lib/libc.so.6:
+/lib/x86_64-linux-gnu/libc.so.6:
 
-/usr/lib/libc_nonshared.a:
+/usr/lib/x86_64-linux-gnu/libc_nonshared.a:
 
-/usr/lib/ld-linux-x86-64.so.2:
+/lib64/ld-linux-x86-64.so.2:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libgcc_s.so:
+/usr/lib/gcc/x86_64-linux-gnu/14/libgcc_s.so:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libgcc_s.so:
+/usr/lib/gcc/x86_64-linux-gnu/14/libgcc_s.so:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libgcc_s.so:
+/usr/lib/gcc/x86_64-linux-gnu/14/libgcc_s.so:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libgcc_s.so.1:
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libgcc_s.so.1:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/libgcc.a:
+/usr/lib/gcc/x86_64-linux-gnu/14/libgcc.a:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/libgcc.a:
+/usr/lib/gcc/x86_64-linux-gnu/14/libgcc.a:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o:
+/usr/lib/gcc/x86_64-linux-gnu/14/crtendS.o:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/crtn.o:
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/crtn.o:
 
-/usr/lib/ld-linux-x86-64.so.2:
+/lib64/ld-linux-x86-64.so.2:

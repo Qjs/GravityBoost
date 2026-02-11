@@ -1,22 +1,26 @@
 lib/SDL/CMakeFiles/SDL3-static.dir/src/core/linux/SDL_evdev_capabilities.c.o: \
- /home/quincy/code/GravityBoost/lib/SDL/src/core/linux/SDL_evdev_capabilities.c \
+ /home/quincy/code/gh_repos/GravityBoost/lib/SDL/src/core/linux/SDL_evdev_capabilities.c \
  /usr/include/stdc-predef.h \
- /home/quincy/code/GravityBoost/lib/SDL/src/SDL_internal.h \
- /home/quincy/code/GravityBoost/lib/SDL/src/core/linux/SDL_evdev_capabilities.h \
- /usr/include/linux/input.h /usr/include/sys/time.h \
- /usr/include/features.h /usr/include/bits/types.h \
- /usr/include/bits/types/time_t.h \
- /usr/include/bits/types/struct_timeval.h /usr/include/sys/select.h \
- /usr/include/sys/ioctl.h /usr/include/bits/ioctls.h \
- /usr/include/asm/ioctls.h /usr/include/asm-generic/ioctls.h \
- /usr/include/linux/ioctl.h /usr/include/asm/ioctl.h \
- /usr/include/asm-generic/ioctl.h /usr/include/linux/sockios.h \
- /usr/include/asm/bitsperlong.h /usr/include/asm-generic/bitsperlong.h \
- /usr/include/asm/sockios.h /usr/include/asm-generic/sockios.h \
- /usr/include/bits/ioctl-types.h /usr/include/sys/ttydefaults.h \
- /usr/include/sys/types.h /usr/include/linux/types.h \
- /usr/include/asm/types.h /usr/include/asm-generic/types.h \
- /usr/include/asm-generic/int-ll64.h /usr/include/linux/posix_types.h \
- /usr/include/linux/stddef.h /usr/include/asm/posix_types.h \
- /usr/include/asm/posix_types_64.h /usr/include/asm-generic/posix_types.h \
+ /home/quincy/code/gh_repos/GravityBoost/lib/SDL/src/SDL_internal.h \
+ /home/quincy/code/gh_repos/GravityBoost/lib/SDL/src/core/linux/SDL_evdev_capabilities.h \
+ /usr/include/linux/input.h /usr/include/x86_64-linux-gnu/sys/time.h \
+ /usr/include/features.h /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/sys/ioctl.h \
+ /usr/include/x86_64-linux-gnu/bits/ioctls.h \
+ /usr/lib/linux/uapi/x86/asm/ioctls.h /usr/include/asm-generic/ioctls.h \
+ /usr/include/linux/ioctl.h /usr/lib/linux/uapi/x86/asm/ioctl.h \
+ /usr/include/asm-generic/ioctl.h \
+ /usr/include/x86_64-linux-gnu/bits/ioctl-types.h \
+ /usr/include/x86_64-linux-gnu/sys/ttydefaults.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h /usr/include/linux/types.h \
+ /usr/lib/linux/uapi/x86/asm/types.h /usr/include/asm-generic/types.h \
+ /usr/include/asm-generic/int-ll64.h \
+ /usr/lib/linux/uapi/x86/asm/bitsperlong.h \
+ /usr/include/asm-generic/bitsperlong.h /usr/include/linux/posix_types.h \
+ /usr/include/linux/stddef.h /usr/lib/linux/uapi/x86/asm/posix_types.h \
+ /usr/lib/linux/uapi/x86/asm/posix_types_64.h \
+ /usr/include/asm-generic/posix_types.h \
  /usr/include/linux/input-event-codes.h

@@ -1,15 +1,15 @@
 lib/SDL/CMakeFiles/SDL3-static.dir/src/core/unix/SDL_fribidi.c.o: \
- /home/quincy/code/GravityBoost/lib/SDL/src/core/unix/SDL_fribidi.c \
+ /home/quincy/code/gh_repos/GravityBoost/lib/SDL/src/core/unix/SDL_fribidi.c \
  /usr/include/stdc-predef.h \
- /home/quincy/code/GravityBoost/lib/SDL/src/SDL_internal.h \
- /home/quincy/code/GravityBoost/lib/SDL/src/core/unix/SDL_fribidi.h \
- /usr/include/sys/types.h /usr/include/fribidi/fribidi.h \
+ /home/quincy/code/gh_repos/GravityBoost/lib/SDL/src/SDL_internal.h \
+ /home/quincy/code/gh_repos/GravityBoost/lib/SDL/src/core/unix/SDL_fribidi.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h /usr/include/fribidi/fribidi.h \
  /usr/include/fribidi/fribidi-common.h \
  /usr/include/fribidi/fribidi-config.h \
  /usr/include/fribidi/fribidi-unicode.h \
  /usr/include/fribidi/fribidi-types.h \
  /usr/include/fribidi/fribidi-begindecls.h \
- /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdint.h \
+ /usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h \
  /usr/include/fribidi/fribidi-enddecls.h \
  /usr/include/fribidi/fribidi-unicode-version.h \
  /usr/include/fribidi/fribidi-flags.h \

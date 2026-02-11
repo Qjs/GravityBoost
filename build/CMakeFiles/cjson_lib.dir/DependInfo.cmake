@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/quincy/code/GravityBoost/lib/cJSON/cJSON.c" "CMakeFiles/cjson_lib.dir/lib/cJSON/cJSON.c.o" "gcc" "CMakeFiles/cjson_lib.dir/lib/cJSON/cJSON.c.o.d"
+  "/home/quincy/code/gh_repos/GravityBoost/lib/cJSON/cJSON.c" "CMakeFiles/cjson_lib.dir/lib/cJSON/cJSON.c.o" "gcc" "CMakeFiles/cjson_lib.dir/lib/cJSON/cJSON.c.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

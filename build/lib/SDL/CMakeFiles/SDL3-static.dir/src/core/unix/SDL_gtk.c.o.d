@@ -1,17 +1,22 @@
 lib/SDL/CMakeFiles/SDL3-static.dir/src/core/unix/SDL_gtk.c.o: \
- /home/quincy/code/GravityBoost/lib/SDL/src/core/unix/SDL_gtk.c \
+ /home/quincy/code/gh_repos/GravityBoost/lib/SDL/src/core/unix/SDL_gtk.c \
  /usr/include/stdc-predef.h \
- /home/quincy/code/GravityBoost/lib/SDL/src/SDL_internal.h \
- /home/quincy/code/GravityBoost/lib/SDL/src/core/unix/SDL_gtk.h \
+ /home/quincy/code/gh_repos/GravityBoost/lib/SDL/src/SDL_internal.h \
+ /home/quincy/code/gh_repos/GravityBoost/lib/SDL/src/core/unix/SDL_gtk.h \
  /usr/include/dlfcn.h /usr/include/features.h \
- /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h \
- /usr/include/bits/dlfcn.h /usr/include/bits/dl_find_object.h \
- /usr/include/errno.h /usr/include/bits/errno.h \
- /usr/include/linux/errno.h /usr/include/asm/errno.h \
- /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
- /usr/include/bits/types/error_t.h /usr/include/unistd.h \
- /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
- /usr/include/bits/wordsize.h /usr/include/bits/types.h \
- /usr/include/bits/confname.h /usr/include/bits/getopt_posix.h \
- /usr/include/bits/getopt_core.h /usr/include/bits/unistd_ext.h \
+ /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/dlfcn.h \
+ /usr/include/x86_64-linux-gnu/bits/dl_find_object.h /usr/include/errno.h \
+ /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
+ /usr/lib/linux/uapi/x86/asm/errno.h /usr/include/asm-generic/errno.h \
+ /usr/include/asm-generic/errno-base.h \
+ /usr/include/x86_64-linux-gnu/bits/types/error_t.h /usr/include/unistd.h \
+ /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
+ /usr/include/x86_64-linux-gnu/bits/environments.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/confname.h \
+ /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
+ /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
+ /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
  /usr/include/linux/close_range.h
