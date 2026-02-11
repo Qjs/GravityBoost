@@ -72,7 +72,7 @@ typedef struct {
     PhysState phys;
 } Game;
 
-bool game_init(Game *game);
+bool game_init(Game *game, const char *level_path);
 void game_update(Game *game, float dt);
 void game_shutdown(Game *game);
 void game_aim_start(Game *game, f32 screen_x, f32 screen_y);

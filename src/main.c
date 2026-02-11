@@ -14,6 +14,18 @@
 #define WINDOW_W 1280
 #define WINDOW_H 720
 
+#define NUM_LEVELS 2
+
+static const char *level_paths[NUM_LEVELS] = {
+    "assets/levels/slingshot_01.json",
+    "assets/levels/gauntlet_02.json",
+};
+
+static const char *level_names[NUM_LEVELS] = {
+    "Slingshot 01",
+    "Gauntlet 02",
+};
+
 // AppState
 typedef struct {
   SDL_Window *window;
@@ -21,6 +33,7 @@ typedef struct {
   SDL_Texture *texture;
   u64 last_ticks;
   Game game;
+  int level_idx;
 } AppState;
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
@@ -64,9 +77,10 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
     SDL_SetTextureScaleMode(state->texture, SDL_SCALEMODE_NEAREST);
 
     state->last_ticks = SDL_GetTicks();
+    state->level_idx = 0;
 
     // Init game state (creates Box2D world + bodies)
-    if (!game_init(&state->game)) {
+    if (!game_init(&state->game, level_paths[state->level_idx])) {
         SDL_Log("game_init failed");
         return SDL_APP_FAILURE;
     }
@@ -91,7 +105,7 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
         // R to reset to aim state
         if (event->key.key == SDLK_R) {
             game_shutdown(&state->game);
-            game_init(&state->game);
+            game_init(&state->game, level_paths[state->level_idx]);
         }
         break;
 
@@ -149,9 +163,12 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
     igText("FPS: %.1f", 1.0f / (dt > 0.0001f ? dt : 0.016f));
     igSeparator();
 
-    static int level_idx = 0;
-    const char *levels[] = {"Level 1", "Level 2", "Level 3"};
-    igCombo_Str_arr("Level", &level_idx, levels, 3, -1);
+    int prev_idx = state->level_idx;
+    igCombo_Str_arr("Level", &state->level_idx, level_names, NUM_LEVELS, -1);
+    if (state->level_idx != prev_idx) {
+        game_shutdown(&state->game);
+        game_init(&state->game, level_paths[state->level_idx]);
+    }
 
     igEnd();
 

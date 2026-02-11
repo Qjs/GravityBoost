@@ -1,0 +1,49 @@
+{
+    "name": "Gauntlet 02",
+    "ppm": 30.0,
+    "bounds": {
+        "min": [-25, -15],
+        "max": [25, 15]
+    },
+    "start": {
+        "pos": [-18, 0],
+        "vel_max": 22.0
+    },
+    "goal": {
+        "pos": [18, 0],
+        "radius": 1.2
+    },
+    "ship": {
+        "radius": 0.25,
+        "density": 1.0,
+        "restitution": 0.1
+    },
+    "planets": [
+        {
+            "pos": [-6, 4],
+            "radius": 2.0,
+            "mu": 50.0,
+            "eps": 0.5
+        },
+        {
+            "pos": [0, -3],
+            "radius": 2.5,
+            "mu": 70.0,
+            "eps": 0.7
+        },
+        {
+            "pos": [8, 2],
+            "radius": 1.8,
+            "mu": 45.0,
+            "eps": 0.4
+        }
+    ],
+    "allow_place": {
+        "sink": true,
+        "repel": true,
+        "max": 3
+    },
+    "ui": {
+        "show_field_default": false
+    }
+}

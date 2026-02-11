@@ -1,39 +1,23 @@
 #include "game/game.h"
+#include "data/json.h"
 #include "physics/physics.h"
 
-bool game_init(Game *game) {
-    // Hard-coded slingshot_01 level for now
+bool game_init(Game *game, const char *level_path) {
     game->state = GAME_STATE_AIM;
 
-    game->cam = (Camera){
-        .ppm      = 30.0f,
-        .cam_x    = 0.0f,
-        .cam_y    = 0.0f,
-        .screen_w = 1280,
-        .screen_h = 720,
-    };
+    // Screen defaults
+    game->cam.cam_x    = 0.0f;
+    game->cam.cam_y    = 0.0f;
+    game->cam.screen_w = 1280;
+    game->cam.screen_h = 720;
 
-    game->ship = (Ship){
-        .pos    = { -15.0f, 0.0f },
-        .vel    = {   0.0f, 0.0f },
-        .radius = 0.25f,
-        .angle  = 0.0f,
-    };
+    // Load level data from JSON
+    if (!json_load(level_path, game))
+        return false;
 
-    game->goal = (Goal){
-        .pos    = { 15.0f, 0.0f },
-        .radius = 1.2f,
-    };
-
-    game->planet_count = 1;
-    game->planets[0] = (Planet){
-        .pos    = { 0.0f, 0.0f },
-        .radius = 2.2f,
-        .mu     = 60.0f,
-        .eps    = 0.6f,
-    };
-
-    game->vel_max = 18.0f;
+    // Zero out runtime state (not from JSON)
+    game->ship.vel   = (Vec2){ 0.0f, 0.0f };
+    game->ship.angle = 0.0f;
     game->aim = (AimState){ .aiming = false };
 
     // Create Box2D world and bodies
