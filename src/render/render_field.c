@@ -3,10 +3,10 @@
 #include <math.h>
 
 #define FIELD_SPACING    2.0f   // world units between sample points
-#define ARROW_MIN_LEN    4.0f   // minimum arrow length in pixels
-#define ARROW_MAX_LEN   30.0f   // maximum arrow length in pixels
+#define ARROW_MIN_LEN    6.0f   // minimum arrow length in pixels
+#define ARROW_MAX_LEN   28.0f   // maximum arrow length in pixels
 #define ARROW_HEAD      6.0f    // arrowhead barb length in pixels
-#define MAG_CLAMP       50.0f   // accel magnitude that maps to max length
+#define MAG_CLAMP        8.0f   // accel magnitude that maps to max length
 
 void render_gravity_field(SDL_Renderer *renderer, const Game *game) {
     const Camera *cam = &game->cam;
@@ -59,7 +59,7 @@ void render_gravity_field(SDL_Renderer *renderer, const Game *game) {
             u8 r = (u8)(60  + t * 195);  // 60  -> 255
             u8 g = (u8)(180 + t * 75);   // 180 -> 255
             u8 b = (u8)(200 * (1.0f - t)); // 200 -> 0
-            u8 a = (u8)(60  + t * 120);  // 60  -> 180
+            u8 a = (u8)(100 + t * 120);  // 100 -> 220
 
             SDL_SetRenderDrawColor(renderer, r, g, b, a);
 
