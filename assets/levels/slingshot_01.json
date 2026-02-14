@@ -38,7 +38,8 @@
             ],
             "radius": 2.2,
             "mu": 60.0,
-            "eps": 0.6
+            "eps": 0.6,
+            "seed": 1
         }
     ],
     "allow_place": {
@@ -47,7 +48,7 @@
         "max": 3
     },
     "fleet": {
-        "count": 5,
+        "count": 8,
         "required": 3
     },
     "ui": {
