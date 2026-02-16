@@ -1,0 +1,62 @@
+{
+	"name":	"Quad",
+	"ppm":	22.335609436035156,
+	"bounds":	{
+		"min":	[-20, -12],
+		"max":	[20, 12]
+	},
+	"start":	{
+		"pos":	[-15, 0],
+		"vel_max":	18
+	},
+	"goal":	{
+		"pos":	[15, 0],
+		"radius":	1.2000000476837158
+	},
+	"ship":	{
+		"radius":	0.25,
+		"density":	1,
+		"restitution":	0.10000000149011612
+	},
+	"planets":	[{
+			"pos":	[-10.100000381469727, 6.75],
+			"radius":	2,
+			"mu":	150,
+			"eps":	0.5,
+			"seed":	1258360185,
+			"type":	2
+		}, {
+			"pos":	[-10.100000381469727, -6.75],
+			"radius":	2,
+			"mu":	150,
+			"eps":	0.5,
+			"seed":	3695221939,
+			"type":	2
+		}, {
+			"pos":	[6, -4.8000001907348633],
+			"radius":	1.75,
+			"mu":	50,
+			"eps":	0.5,
+			"seed":	957738444,
+			"type":	3
+		}, {
+			"pos":	[6, 4.8000001907348633],
+			"radius":	1.75,
+			"mu":	50,
+			"eps":	0.5,
+			"seed":	3999855539,
+			"type":	1
+		}],
+	"allow_place":	{
+		"sink":	true,
+		"repel":	true,
+		"max":	3
+	},
+	"fleet":	{
+		"count":	5,
+		"required":	3
+	},
+	"ui":	{
+		"show_field_default":	false
+	}
+}

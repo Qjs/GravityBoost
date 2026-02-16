@@ -191,11 +191,11 @@ void physics_step(Game *game, f32 dt) {
 
     // Apply one-way spring tether (followers pulled toward leader, leader unaffected)
     fleet_apply_tether(ps->ship_bodies, alive_flags, game->fleet_count,
-                       1.5f, 1.0f, 0.5f);
+                       1.0f, 0.50f, 0.85f);
 
     // Apply separation force between alive fleet ships
     fleet_apply_separation(ps->ship_bodies, alive_flags, game->fleet_count,
-                           2.0f, 30.0f, 15.0f);
+                           2.0f, 15.0f, 5.0f);
 
     // Step the Box2D world
     b2World_Step(ps->world, dt, 4);

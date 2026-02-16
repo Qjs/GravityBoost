@@ -15,16 +15,19 @@
 #define WINDOW_W 1280
 #define WINDOW_H 720
 
-#define NUM_LEVELS 2
+#define NUM_LEVELS 3
 
 static const char *level_paths[NUM_LEVELS] = {
     "assets/levels/slingshot_01.json",
     "assets/levels/gauntlet_02.json",
+    "assets/levels/quad_03.json",
+
 };
 
 static const char *level_names[NUM_LEVELS] = {
     "Slingshot 01",
     "Gauntlet 02",
+    "QuadRun 03",
 };
 
 // AppState

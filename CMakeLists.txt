@@ -71,6 +71,32 @@ target_link_libraries(GravityBoost PRIVATE
     m
 )
 
+# Level Editor executable
+add_executable(GravityEditor
+    src/editor/editor_main.c
+    src/editor/editor_state.c
+    src/editor/editor_save.c
+    src/editor/editor_ui.c
+    src/editor/editor_interact.c
+    src/imgui_sdl3.cpp
+    src/render/render_planets.c
+    src/render/render_bounds.c
+    src/render/render_field.c
+    src/render/render_background.c
+    src/render/planet_gen.c
+    src/physics/phys_gravity.c
+    src/data/json.c
+    src/data/fs.c
+)
+target_include_directories(GravityEditor PRIVATE src lib/stb)
+target_link_libraries(GravityEditor PRIVATE
+    SDL3::SDL3-static
+    cimgui
+    box2d
+    cjson_lib
+    m
+)
+
 if(EMSCRIPTEN)
     set_target_properties(GravityBoost PROPERTIES SUFFIX ".html")
     target_link_options(GravityBoost PRIVATE
