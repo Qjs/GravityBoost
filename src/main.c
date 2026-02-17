@@ -66,6 +66,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
         SDL_Log("SDL_CreateRenderer failed: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
+    SDL_SetRenderVSync(state->renderer, 1);
 
     if (!ImGui_SDL3_Init(state->window, state->renderer)) {
         SDL_Log("ImGui_SDL3_Init failed");

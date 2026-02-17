@@ -98,9 +98,30 @@ target_link_libraries(GravityEditor PRIVATE
 )
 
 if(EMSCRIPTEN)
+    # Don't build the editor for web
+    set_target_properties(GravityEditor PROPERTIES EXCLUDE_FROM_ALL TRUE)
+
     set_target_properties(GravityBoost PROPERTIES SUFFIX ".html")
+
+    # Performance: disable C++ exceptions and RTTI (not used in game code)
+    target_compile_options(GravityBoost PRIVATE -fno-exceptions -fno-rtti)
+    target_compile_options(cimgui PRIVATE -fno-exceptions -fno-rtti)
+
     target_link_options(GravityBoost PRIVATE
         -sALLOW_MEMORY_GROWTH=1
-        -sUSE_SDL=0
+        -sMAXIMUM_MEMORY=1gb
+        -sENVIRONMENT=web
+        -sWASM_BIGINT
+        -sDISABLE_EXCEPTION_CATCHING=1
+        -sEVAL_CTORS=1
+        -sOFFSCREENCANVAS_SUPPORT=1
+        --preload-file ${CMAKE_SOURCE_DIR}/assets@/assets
+        --shell-file ${CMAKE_SOURCE_DIR}/shell.html
     )
+
+    # Enable LTO for cross-unit inlining in release builds
+    if(CMAKE_BUILD_TYPE STREQUAL "Release")
+        target_compile_options(GravityBoost PRIVATE -flto)
+        target_link_options(GravityBoost PRIVATE -flto)
+    endif()
 endif()
