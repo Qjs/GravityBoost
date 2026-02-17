@@ -166,10 +166,12 @@ void physics_launch(Game *game, Vec2 vel) {
     b2Body_SetLinearVelocity(game->phys.ship_bodies[0], (b2Vec2){ vel.x, vel.y });
 }
 
-void physics_step(Game *game, f32 dt) {
+#define PHYS_DT (1.0f / 120.0f)   // fixed physics timestep
+#define PHYS_MAX_STEPS 8          // cap substeps per frame to avoid spiral of death
+
+// Run one fixed-size substep: apply forces, step Box2D, process events
+static void physics_substep(Game *game) {
     PhysState *ps = &game->phys;
-    if (!ps->active) return;
-    if (game->state != GAME_STATE_PLAYING) return;
 
     // Collect alive flags for separation
     bool alive_flags[MAX_FLEET];
@@ -197,8 +199,8 @@ void physics_step(Game *game, f32 dt) {
     fleet_apply_separation(ps->ship_bodies, alive_flags, game->fleet_count,
                            2.0f, 15.0f, 5.0f);
 
-    // Step the Box2D world
-    b2World_Step(ps->world, dt, 4);
+    // Step the Box2D world at fixed timestep
+    b2World_Step(ps->world, PHYS_DT, 4);
 
     // Sync position and velocity back to game state for all alive ships
     for (s32 i = 0; i < game->fleet_count; i++) {
@@ -293,6 +295,32 @@ void physics_step(Game *game, f32 dt) {
             }
         }
     }
+}
+
+void physics_step(Game *game, f32 dt) {
+    PhysState *ps = &game->phys;
+    if (!ps->active) return;
+    if (game->state != GAME_STATE_PLAYING) return;
+
+    // Fixed-timestep accumulator: decouple physics from render frame rate
+    ps->accumulator += dt;
+
+    int steps = 0;
+    while (ps->accumulator >= PHYS_DT && steps < PHYS_MAX_STEPS) {
+        physics_substep(game);
+        ps->accumulator -= PHYS_DT;
+        steps++;
+
+        // Early out if game state changed (fail/success)
+        if (game->state != GAME_STATE_PLAYING) {
+            ps->accumulator = 0.0f;
+            return;
+        }
+    }
+
+    // If we hit the step cap, drain the accumulator to prevent spiral of death
+    if (ps->accumulator > PHYS_DT)
+        ps->accumulator = 0.0f;
 }
 
 void physics_shutdown(Game *game) {

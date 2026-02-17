@@ -108,20 +108,21 @@ if(EMSCRIPTEN)
     target_compile_options(cimgui PRIVATE -fno-exceptions -fno-rtti)
 
     target_link_options(GravityBoost PRIVATE
+        -sINITIAL_MEMORY=32MB
         -sALLOW_MEMORY_GROWTH=1
-        -sMAXIMUM_MEMORY=1gb
+        -sMAXIMUM_MEMORY=256mb
+        -sSTACK_SIZE=256KB
         -sENVIRONMENT=web
         -sWASM_BIGINT
         -sDISABLE_EXCEPTION_CATCHING=1
         -sEVAL_CTORS=1
-        -sOFFSCREENCANVAS_SUPPORT=1
         --preload-file ${CMAKE_SOURCE_DIR}/assets@/assets
         --shell-file ${CMAKE_SOURCE_DIR}/shell.html
     )
 
-    # Enable LTO for cross-unit inlining in release builds
+    # Enable LTO + full optimization at link time for release builds
     if(CMAKE_BUILD_TYPE STREQUAL "Release")
-        target_compile_options(GravityBoost PRIVATE -flto)
-        target_link_options(GravityBoost PRIVATE -flto)
+        target_compile_options(GravityBoost PRIVATE -O3 -flto)
+        target_link_options(GravityBoost PRIVATE -O3 -flto)
     endif()
 endif()

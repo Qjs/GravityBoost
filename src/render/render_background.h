@@ -3,5 +3,6 @@
 #include <SDL3/SDL.h>
 #include "utils/q_util.h"
 
-void background_init(void);
+void background_init(SDL_Renderer *renderer);
+void background_shutdown(void);
 void render_background(SDL_Renderer *renderer, f32 dt);

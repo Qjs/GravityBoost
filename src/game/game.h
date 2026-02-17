@@ -77,6 +77,7 @@ typedef struct {
     b2BodyId   ship_bodies[MAX_FLEET];     // one per fleet ship
     b2BodyId   goal_body;
     b2BodyId   planet_bodies[MAX_PLANETS];
+    f32        accumulator;                // fixed-timestep accumulator
 } PhysState;
 
 typedef struct {

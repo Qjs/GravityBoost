@@ -30,15 +30,31 @@ static const char *level_names[NUM_LEVELS] = {
     "QuadRun 03",
 };
 
+// Frame timing breakdown (smoothed, in ms)
+typedef struct {
+    f32 physics;
+    f32 render;
+    f32 imgui;
+    f32 present;
+    f32 total;
+} FrameTiming;
+
 // AppState
 typedef struct {
   SDL_Window *window;
   SDL_Renderer *renderer;
   SDL_Texture *texture;
-  u64 last_ticks;
+  u64 last_counter;
   Game game;
   int level_idx;
+  f32 fps_smooth;  // exponentially smoothed FPS
+  bool show_stars;
+  FrameTiming timing;
 } AppState;
+
+static inline f32 elapsed_ms(u64 start, u64 freq) {
+    return (f32)(SDL_GetPerformanceCounter() - start) / (f32)freq * 1000.0f;
+}
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
     (void)argc;
@@ -66,7 +82,14 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
         SDL_Log("SDL_CreateRenderer failed: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
+#ifdef __EMSCRIPTEN__
+    // Disable SDL vsync stall — rAF already provides frame pacing
+    SDL_SetRenderVSync(state->renderer, 0);
+    // Ensure the main loop uses requestAnimationFrame (not setTimeout)
+    SDL_SetHint(SDL_HINT_MAIN_CALLBACK_RATE, "0");
+#else
     SDL_SetRenderVSync(state->renderer, 1);
+#endif
 
     if (!ImGui_SDL3_Init(state->window, state->renderer)) {
         SDL_Log("ImGui_SDL3_Init failed");
@@ -81,8 +104,9 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
     }
     SDL_SetTextureScaleMode(state->texture, SDL_SCALEMODE_NEAREST);
 
-    state->last_ticks = SDL_GetTicks();
+    state->last_counter = SDL_GetPerformanceCounter();
     state->level_idx = 0;
+    state->show_stars = true;
 
     // Init game state (creates Box2D world + bodies)
     if (!game_init(&state->game, level_paths[state->level_idx])) {
@@ -153,37 +177,50 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
 SDL_AppResult SDL_AppIterate(void *appstate) {
     AppState *state = appstate;
 
-    // Timing
-    u64 now = SDL_GetTicks();
-    f32 dt = (f32)(now - state->last_ticks) / 1000.0f;
-    state->last_ticks = now;
+    // Timing (high-precision counter for smooth dt)
+    u64 now = SDL_GetPerformanceCounter();
+    u64 freq = SDL_GetPerformanceFrequency();
+    f32 dt = (f32)(now - state->last_counter) / (f32)freq;
+    state->last_counter = now;
 
-    // Update game (Box2D steps inside)
+    // Clamp dt to avoid physics explosions from lag spikes
+    if (dt > 0.05f) dt = 0.05f;  // cap at 20 FPS minimum step
+
+    // Smooth FPS (exponential moving average, ~0.5s window)
+    f32 inst_fps = (dt > 0.0001f) ? 1.0f / dt : 0.0f;
+    if (state->fps_smooth < 1.0f)
+        state->fps_smooth = inst_fps;  // first frame init
+    else
+        state->fps_smooth += (inst_fps - state->fps_smooth) * 0.05f;
+
+    u64 t0, t1, t2, t3, t4;
+    f32 smooth = 0.05f;  // EMA smoothing factor
+
+    // --- Physics ---
+    t0 = SDL_GetPerformanceCounter();
     game_update(&state->game, dt);
+    t1 = SDL_GetPerformanceCounter();
 
-    // Clear
+    // --- Render ---
     SDL_SetRenderDrawColor(state->renderer, 10, 10, 18, 255);
     SDL_RenderClear(state->renderer);
 
-    // Parallax starfield
-    render_background(state->renderer, dt);
-
-    // Level bounds
+    if (state->show_stars)
+        render_background(state->renderer, dt);
     render_bounds(state->renderer, &state->game);
-
-    // Game objects
     render_planets(state->renderer, &state->game);
     if (state->game.show_field)
         render_gravity_field(state->renderer, &state->game);
     render_ship(state->renderer, &state->game);
+    t2 = SDL_GetPerformanceCounter();
 
-    // ImGui frame
+    // --- ImGui ---
     ImGui_SDL3_NewFrame();
 
     igSetNextWindowPos((ImVec2){10, 10}, ImGuiCond_FirstUseEver, (ImVec2){0, 0});
-    igSetNextWindowSize((ImVec2){250, 180}, ImGuiCond_FirstUseEver);
+    igSetNextWindowSize((ImVec2){250, 260}, ImGuiCond_FirstUseEver);
     igBegin("GravityBoost", NULL, 0);
-    igText("FPS: %.1f", 1.0f / (dt > 0.0001f ? dt : 0.016f));
+    igText("FPS: %.1f", state->fps_smooth);
     igSeparator();
 
     int prev_idx = state->level_idx;
@@ -195,16 +232,41 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
         planet_textures_generate(state->renderer, &state->game);
     }
 
+    igCheckbox("Stars", &state->show_stars);
     igCheckbox("Gravity Field", &state->game.show_field);
     igSeparator();
     igText("Fleet: %d/%d alive", state->game.alive_count, state->game.fleet_count);
     igText("Arrived: %d/%d required", state->game.arrived_count, state->game.required_ships);
 
+    // Frame timing breakdown
+    igSeparator();
+    igText("-- Frame Timing (ms) --");
+    igText("Physics:  %.2f", state->timing.physics);
+    igText("Render:   %.2f", state->timing.render);
+    igText("ImGui:    %.2f", state->timing.imgui);
+    igText("Present:  %.2f", state->timing.present);
+    igText("Total:    %.2f", state->timing.total);
+
     igEnd();
 
-    // Render
+    // --- Present ---
     ImGui_SDL3_Render(state->renderer);
+    t3 = SDL_GetPerformanceCounter();
     SDL_RenderPresent(state->renderer);
+    t4 = SDL_GetPerformanceCounter();
+
+    // Update smoothed timings
+    f32 ms_phys    = (f32)(t1 - t0) / (f32)freq * 1000.0f;
+    f32 ms_render  = (f32)(t2 - t1) / (f32)freq * 1000.0f;
+    f32 ms_imgui   = (f32)(t3 - t2) / (f32)freq * 1000.0f;
+    f32 ms_present = (f32)(t4 - t3) / (f32)freq * 1000.0f;
+    f32 ms_total   = (f32)(t4 - t0) / (f32)freq * 1000.0f;
+
+    state->timing.physics  += (ms_phys    - state->timing.physics)  * smooth;
+    state->timing.render   += (ms_render  - state->timing.render)   * smooth;
+    state->timing.imgui    += (ms_imgui   - state->timing.imgui)    * smooth;
+    state->timing.present  += (ms_present - state->timing.present)  * smooth;
+    state->timing.total    += (ms_total   - state->timing.total)    * smooth;
 
     return SDL_APP_CONTINUE;
 }
@@ -214,6 +276,7 @@ void SDL_AppQuit(void *appstate, SDL_AppResult result) {
     AppState *state = appstate;
     if (!state) return;
 
+    background_shutdown();
     planet_textures_destroy(&state->game);
     game_shutdown(&state->game);
     ImGui_SDL3_Shutdown();

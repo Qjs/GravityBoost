@@ -1,40 +1,18 @@
 #include "render/render_ship.h"
 #include <math.h>
 
-// Draw a filled triangle using scanline fill
+// Draw a filled triangle using SDL_RenderGeometry (1 draw call)
 static void fill_triangle(SDL_Renderer *renderer,
                            f32 x0, f32 y0,
                            f32 x1, f32 y1,
-                           f32 x2, f32 y2) {
-    // Sort vertices by Y
-    if (y0 > y1) { f32 t; t=x0; x0=x1; x1=t; t=y0; y0=y1; y1=t; }
-    if (y0 > y2) { f32 t; t=x0; x0=x2; x2=t; t=y0; y0=y2; y2=t; }
-    if (y1 > y2) { f32 t; t=x1; x1=x2; x2=t; t=y1; y1=y2; y2=t; }
-
-    if ((s32)y2 == (s32)y0) return; // degenerate
-
-    for (s32 y = (s32)y0; y <= (s32)y2; y++) {
-        f32 fy = (f32)y + 0.5f;
-        f32 xa, xb;
-
-        // Long edge: y0 -> y2
-        f32 t_long = (fy - y0) / (y2 - y0);
-        xa = x0 + t_long * (x2 - x0);
-
-        // Short edge
-        if (fy < y1) {
-            if ((s32)y1 == (s32)y0) continue;
-            f32 t_short = (fy - y0) / (y1 - y0);
-            xb = x0 + t_short * (x1 - x0);
-        } else {
-            if ((s32)y2 == (s32)y1) continue;
-            f32 t_short = (fy - y1) / (y2 - y1);
-            xb = x1 + t_short * (x2 - x1);
-        }
-
-        if (xa > xb) { f32 t = xa; xa = xb; xb = t; }
-        SDL_RenderLine(renderer, (s32)xa, y, (s32)xb, y);
-    }
+                           f32 x2, f32 y2,
+                           SDL_FColor color) {
+    SDL_Vertex verts[3] = {
+        { .position = { x0, y0 }, .color = color, .tex_coord = { 0, 0 } },
+        { .position = { x1, y1 }, .color = color, .tex_coord = { 0, 0 } },
+        { .position = { x2, y2 }, .color = color, .tex_coord = { 0, 0 } },
+    };
+    SDL_RenderGeometry(renderer, NULL, verts, 3, NULL, 0);
 }
 
 static void draw_aim_line(SDL_Renderer *renderer, const Game *game) {
@@ -140,37 +118,34 @@ static void draw_one_ship(SDL_Renderer *renderer, const Camera *cam,
         f32 er = sx + cosf(a - 2.8f) * size * 0.3f;
         f32 ery = sy - sinf(a - 2.8f) * size * 0.3f;
 
-        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-        SDL_SetRenderDrawColor(renderer, 255, 160, 40, 140);
-        fill_triangle(renderer, ex, ey, el, ely, er, ery);
-        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
+        SDL_FColor glow_color = { 1.0f, 160.0f/255.0f, 40.0f/255.0f, 140.0f/255.0f };
+        fill_triangle(renderer, ex, ey, el, ely, er, ery, glow_color);
     }
 
     // Ship body color
+    SDL_FColor body_color;
     if (is_arrived) {
-        // Arrived ships: faded green
-        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-        SDL_SetRenderDrawColor(renderer, 100, 255, 140, 120);
+        body_color = (SDL_FColor){ 100.0f/255.0f, 1.0f, 140.0f/255.0f, 120.0f/255.0f };
     } else if (is_leader) {
-        // Leader: light blue
-        SDL_SetRenderDrawColor(renderer, 200, 220, 255, 255);
+        body_color = (SDL_FColor){ 200.0f/255.0f, 220.0f/255.0f, 1.0f, 1.0f };
     } else {
-        // Follower: more cyan/green tint
-        SDL_SetRenderDrawColor(renderer, 160, 240, 230, 255);
+        body_color = (SDL_FColor){ 160.0f/255.0f, 240.0f/255.0f, 230.0f/255.0f, 1.0f };
     }
-    fill_triangle(renderer, nx, ny, lx, ly, rx, ry);
+    fill_triangle(renderer, nx, ny, lx, ly, rx, ry, body_color);
 
-    // Ship outline
+    // Ship outline using SDL_RenderLines (1 call instead of 3)
     if (is_arrived) {
+        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(renderer, 60, 200, 100, 120);
     } else if (is_leader) {
         SDL_SetRenderDrawColor(renderer, 140, 180, 255, 255);
     } else {
         SDL_SetRenderDrawColor(renderer, 100, 200, 200, 255);
     }
-    SDL_RenderLine(renderer, nx, ny, lx, ly);
-    SDL_RenderLine(renderer, lx, ly, rx, ry);
-    SDL_RenderLine(renderer, rx, ry, nx, ny);
+    SDL_FPoint outline[4] = {
+        { nx, ny }, { lx, ly }, { rx, ry }, { nx, ny }
+    };
+    SDL_RenderLines(renderer, outline, 4);
 
     if (is_arrived) {
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);

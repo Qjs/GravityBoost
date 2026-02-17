@@ -1,19 +1,53 @@
 #include "render/render_planets.h"
 #include <math.h>
 
-// Draw a circle outline (ring)
-static void draw_circle(SDL_Renderer *renderer, f32 cx, f32 cy, f32 r, s32 segments) {
+#define RING_SEGMENTS 64
+// Each segment of a ring = 2 triangles = 6 indices, 2 new verts (strip-like)
+// Total: (RING_SEGMENTS + 1) * 2 verts, RING_SEGMENTS * 6 indices
+#define RING_MAX_VERTS  ((RING_SEGMENTS + 1) * 2)
+#define RING_MAX_INDICES (RING_SEGMENTS * 6)
+
+// Draw a filled ring (annulus) as triangle-strip geometry
+static void draw_ring(SDL_Renderer *renderer, f32 cx, f32 cy,
+                       f32 inner_r, f32 outer_r, s32 segments,
+                       SDL_FColor color) {
+    SDL_Vertex verts[RING_MAX_VERTS];
+    int indices[RING_MAX_INDICES];
+    int vi = 0, ii = 0;
+
     f32 step = 2.0f * (f32)M_PI / segments;
-    f32 px = cx + r;
-    f32 py = cy;
-    for (s32 i = 1; i <= segments; i++) {
+
+    for (s32 i = 0; i <= segments; i++) {
         f32 a = step * i;
-        f32 nx = cx + r * cosf(a);
-        f32 ny = cy + r * sinf(a);
-        SDL_RenderLine(renderer, px, py, nx, ny);
-        px = nx;
-        py = ny;
+        f32 ca = cosf(a);
+        f32 sa = sinf(a);
+
+        // Outer vertex
+        verts[vi].position = (SDL_FPoint){ cx + outer_r * ca, cy + outer_r * sa };
+        verts[vi].color = color;
+        verts[vi].tex_coord = (SDL_FPoint){ 0, 0 };
+        vi++;
+
+        // Inner vertex
+        verts[vi].position = (SDL_FPoint){ cx + inner_r * ca, cy + inner_r * sa };
+        verts[vi].color = color;
+        verts[vi].tex_coord = (SDL_FPoint){ 0, 0 };
+        vi++;
+
+        if (i < segments) {
+            int base = i * 2;
+            // Triangle 1: outer[i], inner[i], outer[i+1]
+            indices[ii++] = base;
+            indices[ii++] = base + 1;
+            indices[ii++] = base + 2;
+            // Triangle 2: inner[i], inner[i+1], outer[i+1]
+            indices[ii++] = base + 1;
+            indices[ii++] = base + 3;
+            indices[ii++] = base + 2;
+        }
     }
+
+    SDL_RenderGeometry(renderer, NULL, verts, vi, indices, ii);
 }
 
 // Atmosphere glow color per planet type
@@ -44,8 +78,15 @@ void render_planets(SDL_Renderer *renderer, const Game *game) {
         for (s32 ring = 3; ring >= 1; ring--) {
             f32 ring_r = sr + ring * 4.0f;
             u8 alpha = (u8)(40 / ring);
-            SDL_SetRenderDrawColor(renderer, ar, ag, ab, alpha);
-            draw_circle(renderer, sx, sy, ring_r, 64);
+            SDL_FColor color = {
+                (f32)ar / 255.0f,
+                (f32)ag / 255.0f,
+                (f32)ab / 255.0f,
+                (f32)alpha / 255.0f
+            };
+            // Ring with 1-pixel thickness to match the old line look
+            draw_ring(renderer, sx, sy, ring_r - 0.5f, ring_r + 0.5f,
+                      RING_SEGMENTS, color);
         }
 
         // Planet body — use generated texture if available
@@ -65,10 +106,14 @@ void render_planets(SDL_Renderer *renderer, const Game *game) {
         f32 gr = world_to_screen_r(cam, game->goal.radius);
 
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-        SDL_SetRenderDrawColor(renderer, 0, 255, 100, 180);
-        draw_circle(renderer, gx, gy, gr, 48);
-        SDL_SetRenderDrawColor(renderer, 0, 255, 100, 60);
-        draw_circle(renderer, gx, gy, gr * 0.8f, 48);
+
+        SDL_FColor green_bright = { 0.0f, 1.0f, 100.0f / 255.0f, 180.0f / 255.0f };
+        draw_ring(renderer, gx, gy, gr - 0.5f, gr + 0.5f, 48, green_bright);
+
+        SDL_FColor green_dim = { 0.0f, 1.0f, 100.0f / 255.0f, 60.0f / 255.0f };
+        f32 inner_r = gr * 0.8f;
+        draw_ring(renderer, gx, gy, inner_r - 0.5f, inner_r + 0.5f, 48, green_dim);
+
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
     }
 }

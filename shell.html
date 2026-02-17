@@ -37,6 +37,8 @@
 
     canvas.emscripten {
       display: block;
+      width: 1280px;
+      height: 720px;
       background: #0a0a12;
     }
 
@@ -92,7 +94,7 @@
   <h1>GravityBoost</h1>
 
   <div id="canvas-container">
-    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex="-1"></canvas>
+    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex="-1" width="1280" height="720"></canvas>
     <div id="loading-overlay">
       <div id="loading-text">Loading...</div>
       <div id="progress-bar-outer">
@@ -131,11 +133,23 @@
         } else {
           Module.setStatus('Loading... (' + (this.totalDependencies - left) + '/' + this.totalDependencies + ')');
         }
+      },
+      onRuntimeInitialized: function() {
+        // Fallback: hide overlay once WASM runtime is ready
+        // (covers cases where monitorRunDependencies never fires with 0)
+        Module.setStatus('');
       }
     };
 
     Module.setStatus('Loading...');
-    window.onerror = function() {
+
+    // Fallback: force-hide overlay after 3 seconds regardless
+    setTimeout(function() {
+      loadingOverlay.classList.add('hidden');
+    }, 3000);
+
+    window.onerror = function(msg) {
+      console.error('window.onerror:', msg);
       Module.setStatus('Error — see browser console');
       loadingOverlay.querySelector('#loading-text').textContent = 'Error loading — see console';
     };
